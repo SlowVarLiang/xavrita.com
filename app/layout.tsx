@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google'
+import Script from 'next/script'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { defaultMetadata, createOrganizationSchema, createWebSiteSchema } from '@/lib/seo'
@@ -98,6 +99,26 @@ export default function RootLayout({
             background: #8b5cf6;
           }
         `}</style>
+
+        {/* Google Analytics */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQESXXPK9H" strategy="afterInteractive" />
+        <Script id="ga-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZQESXXPK9H');
+          `}
+        </Script>
+
+        {/* Plausible Analytics */}
+        <Script async src="https://plausible.io/js/pa-g5P0ZxaYfVoCTc8KV0Lqr.js" strategy="afterInteractive" />
+        <Script id="plausible-init" strategy="afterInteractive">
+          {`
+            window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+            plausible.init()
+          `}
+        </Script>
       </head>
       <body className="font-body bg-void text-text-primary min-h-screen flex flex-col antialiased">
         <Header />
