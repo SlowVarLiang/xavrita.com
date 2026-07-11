@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://xavrita.com',
+    url: 'https://xavrito.com',
     siteName: 'Xavrito',
     title: 'Xavrito - Free HTML5 Games',
     description: 'Play free HTML5 browser games instantly.',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://xavrita.com/',
+    canonical: 'https://xavrito.com/',
   },
 }
 
@@ -59,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <script src="https://cdn.tailwindcss.com"></script>
         <script
@@ -70,14 +70,14 @@ export default function RootLayout({
                 theme: {
                   extend: {
                     colors: {
-                      void: '#0c0c10',
-                      surface: '#131318',
-                      border: '#1f1f28',
+                      void: '#FAFAF9',
+                      surface: '#FFFFFF',
+                      border: '#E7E5E4',
                       'accent-violet': '#8b5cf6',
                       'accent-cyan': '#22d3ee',
                       'accent-amber': '#f59e0b',
-                      'text-primary': '#f1f5f9',
-                      'text-muted': '#64748b',
+                      'text-primary': '#1C1917',
+                      'text-muted': '#78716C',
                     },
                     fontFamily: {
                       display: ['var(--font-display)', 'system-ui', 'sans-serif'],
@@ -95,22 +95,25 @@ export default function RootLayout({
             scroll-behavior: smooth;
           }
           ::selection {
-            background: #8b5cf6;
-            color: #f1f5f9;
+            background: #F97316;
+            color: white;
+          }
+          body {
+            background-color: #FAFAF9;
           }
           ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
           }
           ::-webkit-scrollbar-track {
-            background: #0c0c10;
+            background: #FAFAF9;
           }
           ::-webkit-scrollbar-thumb {
-            background: #1f1f28;
+            background: #E7E5E4;
             border-radius: 4px;
           }
           ::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
+            background: #F97316;
           }
         `}</style>
 
@@ -134,7 +137,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="font-body bg-void text-text-primary min-h-screen flex flex-col antialiased">
+      <body className="font-body bg-[#FAFAF9] text-[#1C1917] min-h-screen flex flex-col antialiased">
         <Header />
         <main className="flex-1">
           {children}
