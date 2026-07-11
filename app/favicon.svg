@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <!-- Cabinet screen -->
-  <rect x="6" y="4" width="20" height="14" rx="2" fill="#22C55E"/>
+  <rect x="6" y="4" width="20" height="14" rx="2" fill="#A78BFA"/>
   <!-- Play triangle -->
   <polygon points="13,8 13,14 19,11" fill="#1C1917"/>
   <!-- Control panel -->

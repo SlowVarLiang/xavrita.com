@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="6" y="4" width="20" height="14" rx="2" fill="#22C55E"/>
+              <rect x="6" y="4" width="20" height="14" rx="2" fill="#A78BFA"/>
               <polygon points="13,8 13,14 19,11" fill="#1C1917"/>
               <rect x="6" y="20" width="20" height="8" rx="1" fill="#374151"/>
               <circle cx="11" cy="24" r="2" fill="#6B7280"/>
