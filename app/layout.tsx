@@ -31,6 +31,10 @@ export const metadata: Metadata = {
   description: 'Play free HTML5 browser games instantly. No downloads. No signups. Just fun.',
   keywords: ['HTML5 games', 'free games', 'browser games', 'mini games', 'online games'],
   authors: [{ name: 'Xavrito' }],
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
