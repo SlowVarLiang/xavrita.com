@@ -141,3 +141,65 @@ export function createWebSiteSchema() {
     },
   }
 }
+
+export function createGameSchema(games: Array<{
+  slug: string
+  name: string
+  description: string
+  thumbnail: string
+  category: string
+  tags: string[]
+  developer?: string
+}>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'HTML5 Games',
+    description: 'Collection of free HTML5 browser games',
+    numberOfItems: games.length,
+    itemListElement: games.map((game, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Game',
+        name: game.name,
+        description: game.description,
+        image: game.thumbnail,
+        genre: game.category,
+        keywords: game.tags.join(', '),
+        url: `https://xavrito.com/games/${game.slug}/`,
+        author: game.developer ? {
+          '@type': 'Organization',
+          name: game.developer
+        } : undefined,
+      },
+    })),
+  }
+}
+
+export function createHtml5GameSchema(game: {
+  slug: string
+  name: string
+  description: string
+  thumbnail: string
+  category: string
+  tags: string[]
+  developer?: string
+  gameUrl: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Game',
+    name: game.name,
+    description: game.description,
+    image: game.thumbnail,
+    genre: game.category,
+    keywords: game.tags.join(', '),
+    url: `https://xavrito.com/games/${game.slug}/`,
+    playMode: game.tags.includes('multiplayer') ? 'MultiPlayer' : 'SinglePlayer',
+    author: game.developer ? {
+      '@type': 'Organization',
+      name: game.developer
+    } : undefined,
+  }
+}

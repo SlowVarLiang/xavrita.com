@@ -2,18 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { games, categories } from '@/lib/games-data'
-
-const GAME_ACCENTS: Record<string, string> = {
-  'v-rising': '#dc2626',
-  'palworld': '#22c55e',
-  'once-human': '#06b6d4',
-  'core-keeper': '#f59e0b',
-  'soulmask': '#ea580c',
-  'dune-awakening': '#fbbf24',
-  'enshrouded': '#ef4444',
-  'abiotic-factor': '#22d3ee',
-}
+import { html5Games, categories } from '@/lib/html5-games'
 
 function ExternalLinkIcon() {
   return (
@@ -39,6 +28,8 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
+  const featuredGames = html5Games.filter(g => g.featured).slice(0, 6)
+
   return (
     <header className="bg-void/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -49,7 +40,7 @@ export default function Header() {
               Xavrito
             </span>
             <span className="hidden sm:inline text-xs font-mono text-text-muted bg-surface px-2 py-0.5 rounded border border-border">
-              v2.0
+              Games
             </span>
           </Link>
 
@@ -68,7 +59,7 @@ export default function Header() {
               onMouseEnter={() => setActiveDropdown('games')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-surface flex items-center gap-1.5">
+              <button className="px-4 py-2 text-sm text-text-primary hover:text-accent-violet transition-colors rounded-lg hover:bg-surface flex items-center gap-1.5">
                 Games
                 <svg className={"w-4 h-4 transition-transform " + (activeDropdown === 'games' ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -76,20 +67,21 @@ export default function Header() {
               </button>
               {activeDropdown === 'games' && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 bg-surface border border-border rounded-xl shadow-2xl shadow-black/50 p-4">
+                  <div className="mb-3 pb-3 border-b border-border">
+                    <Link href="/games" className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-void transition-all text-sm text-accent-violet font-medium">
+                      View All Games
+                      <span>→</span>
+                    </Link>
+                  </div>
                   <div className="grid grid-cols-2 gap-1.5">
-                    {games.map((game) => (
+                    {featuredGames.map((game) => (
                       <Link
                         key={game.slug}
-                        href={game.external || `/games/${game.slug}`}
-                        {...(game.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        href={`/games/${game.slug}`}
                         className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-void group transition-all"
-                        style={{
-                          '--glow-color': GAME_ACCENTS[game.slug] || '#8b5cf6'
-                        } as React.CSSProperties}
                       >
                         <span className="text-lg">{game.emoji}</span>
-                        <span className="text-sm text-text-muted group-hover:text-text-primary transition-colors">{game.name}</span>
-                        {game.external && <ExternalLinkIcon />}
+                        <span className="text-sm text-text-muted group-hover:text-text-primary transition-colors truncate">{game.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -97,25 +89,25 @@ export default function Header() {
               )}
             </div>
 
-            {/* Guides Dropdown */}
+            {/* Categories Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setActiveDropdown('guides')}
+              onMouseEnter={() => setActiveDropdown('categories')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-surface flex items-center gap-1.5">
-                Guides
-                <svg className="w-4 h-4 transition-transform" style={{ transform: activeDropdown === 'guides' ? 'rotate(180deg)' : '' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                Categories
+                <svg className={"w-4 h-4 transition-transform " + (activeDropdown === 'categories' ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {activeDropdown === 'guides' && (
+              {activeDropdown === 'categories' && (
                 <div className="absolute top-full left-0 mt-2 w-56 bg-surface border border-border rounded-xl shadow-2xl shadow-black/50 p-3">
-                  <div className="space-y-0.5">
-                    {categories.slice(0, 8).map((category) => (
+                  <div className="grid grid-cols-2 gap-1">
+                    {categories.filter(c => c !== 'All').map((category) => (
                       <Link
                         key={category}
-                        href={`/guides/?category=${encodeURIComponent(category)}`}
+                        href={`/games?category=${encodeURIComponent(category)}`}
                         className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-text-muted hover:text-text-primary hover:bg-void transition-all"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-accent-violet opacity-50"></span>
@@ -128,28 +120,10 @@ export default function Header() {
             </div>
 
             <Link
-              href="/wiki"
+              href="/games"
               className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-surface"
             >
-              Wiki
-            </Link>
-            <Link
-              href="/tools"
-              className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-surface"
-            >
-              Tools
-            </Link>
-            <Link
-              href="/tier-lists"
-              className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-surface"
-            >
-              Tier Lists
-            </Link>
-            <Link
-              href="/maps"
-              className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-surface"
-            >
-              Maps
+              All Games
             </Link>
           </div>
 
@@ -178,17 +152,16 @@ export default function Header() {
               Home
             </Link>
             <div className="px-4 py-2.5">
-              <div className="text-xs font-mono text-text-muted mb-2">Games</div>
+              <div className="text-xs font-mono text-text-muted mb-2">Featured Games</div>
               <div className="grid grid-cols-2 gap-1">
-                {games.map((game) => (
+                {featuredGames.map((game) => (
                   <Link
                     key={game.slug}
-                    href={game.external || `/games/${game.slug}`}
-                    {...(game.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    href={`/games/${game.slug}`}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface"
                   >
                     <span>{game.emoji}</span>
-                    <span className="text-sm">{game.name}</span>
+                    <span className="text-sm truncate">{game.name}</span>
                   </Link>
                 ))}
               </div>
@@ -196,10 +169,10 @@ export default function Header() {
             <div className="px-4 py-2.5">
               <div className="text-xs font-mono text-text-muted mb-2">Categories</div>
               <div className="grid grid-cols-2 gap-1">
-                {categories.slice(0, 6).map((category) => (
+                {categories.filter(c => c !== 'All').map((category) => (
                   <Link
                     key={category}
-                    href={`/guides/?category=${encodeURIComponent(category)}`}
+                    href={`/games?category=${encodeURIComponent(category)}`}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface text-sm"
                   >
                     {category}
@@ -208,17 +181,8 @@ export default function Header() {
               </div>
             </div>
             <div className="border-t border-border pt-4 space-y-1">
-              <Link href="/wiki" className="block px-4 py-2.5 text-sm text-text-muted hover:text-text-primary hover:bg-surface rounded-lg">
-                Wiki
-              </Link>
-              <Link href="/tools" className="block px-4 py-2.5 text-sm text-text-muted hover:text-text-primary hover:bg-surface rounded-lg">
-                Tools
-              </Link>
-              <Link href="/tier-lists" className="block px-4 py-2.5 text-sm text-text-muted hover:text-text-primary hover:bg-surface rounded-lg">
-                Tier Lists
-              </Link>
-              <Link href="/maps" className="block px-4 py-2.5 text-sm text-text-muted hover:text-text-primary hover:bg-surface rounded-lg">
-                Maps
+              <Link href="/games" className="block px-4 py-2.5 text-sm text-text-muted hover:text-text-primary hover:bg-surface rounded-lg">
+                All Games
               </Link>
             </div>
           </div>

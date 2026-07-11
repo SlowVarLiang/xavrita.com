@@ -25,9 +25,32 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  ...defaultMetadata,
+  title: {
+    default: 'Xavrito - Free HTML5 Games Portal',
+    template: '%s | Xavrito'
+  },
+  description: 'Play free HTML5 browser games instantly. No downloads required. Action, puzzle, io, arcade and more.',
+  keywords: ['HTML5 games', 'free games', 'browser games', 'online games', 'mini games'],
+  authors: [{ name: 'Xavrito' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://xavrita.com',
+    siteName: 'Xavrito',
+    title: 'Xavrito - Free HTML5 Games Portal',
+    description: 'Play free HTML5 browser games instantly. No downloads required.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Xavrito - Free HTML5 Games Portal',
+    description: 'Play free HTML5 browser games instantly. No downloads required.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
-    canonical: 'https://xavrita.com/',
+    canonical: 'https://xavrito.com/',
   },
 }
 

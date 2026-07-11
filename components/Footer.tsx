@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { games } from '@/lib/games-data'
+import { html5Games, categories } from '@/lib/html5-games'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const featuredGames = html5Games.filter(g => g.featured).slice(0, 6)
 
   return (
     <footer className="bg-void border-t border-border mt-auto">
@@ -14,12 +15,11 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xl font-display font-bold text-text-primary">Xavrito</span>
               <span className="text-xs font-mono text-text-muted bg-surface px-2 py-0.5 rounded border border-border">
-                v2.0
+                Games
               </span>
             </div>
             <p className="text-text-muted text-sm leading-relaxed mb-4 max-w-sm">
-              Your command center for mastering the latest games. 
-              Comprehensive guides, interactive tools, and detailed wikis.
+              Free HTML5 browser games you can play instantly. No downloads required.
             </p>
             {/* Status Indicator */}
             <div className="flex items-center gap-2 text-xs font-mono">
@@ -32,14 +32,13 @@ export default function Footer() {
           <div className="md:col-span-3">
             <h4 className="font-display font-semibold text-text-primary text-sm mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-violet"></span>
-              Games
+              Featured Games
             </h4>
             <ul className="space-y-1.5">
-              {games.slice(0, 6).map((game) => (
+              {featuredGames.map((game) => (
                 <li key={game.slug}>
-                  <Link 
-                    href={game.external || `/games/${game.slug}`}
-                    {...(game.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  <Link
+                    href={`/games/${game.slug}`}
                     className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-accent-cyan transition-colors"
                   >
                     <span>{game.emoji}</span>
@@ -50,76 +49,38 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources Column */}
+          {/* Categories Column */}
           <div className="md:col-span-2">
             <h4 className="font-display font-semibold text-text-primary text-sm mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-amber"></span>
-              Resources
+              Categories
             </h4>
             <ul className="space-y-1.5">
-              <li>
-                <Link href="/guides/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  All Guides
-                </Link>
-              </li>
-              <li>
-                <Link href="/wiki/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Wikis
-                </Link>
-              </li>
-              <li>
-                <Link href="/tools/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Interactive Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/tier-lists/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Tier Lists
-                </Link>
-              </li>
-              <li>
-                <Link href="/maps/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Maps
-                </Link>
-              </li>
+              {categories.filter(c => c !== 'All').map((category) => (
+                <li key={category}>
+                  <Link href={`/games?category=${encodeURIComponent(category)}`} className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
+                    {category}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Legal Column */}
+          {/* Links Column */}
           <div className="md:col-span-3">
             <h4 className="font-display font-semibold text-text-primary text-sm mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
-              Legal
+              Quick Links
             </h4>
             <ul className="space-y-1.5">
               <li>
-                <Link href="/about/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  About Us
+                <Link href="/games" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
+                  All Games
                 </Link>
               </li>
               <li>
-                <Link href="/contact/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/dmca/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  DMCA
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookies/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
-                  Cookies
+                <Link href="/" className="text-sm text-text-muted hover:text-accent-cyan transition-colors">
+                  Home
                 </Link>
               </li>
             </ul>
@@ -134,9 +95,9 @@ export default function Footer() {
             <span>All rights reserved</span>
           </div>
           <div className="flex items-center gap-2 text-xs text-text-muted">
-            <span>Built for gamers</span>
+            <span>Free HTML5 games</span>
             <span className="text-accent-violet">◆</span>
-            <span>by gamers</span>
+            <span>No download</span>
           </div>
         </div>
       </div>
