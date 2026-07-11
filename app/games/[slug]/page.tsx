@@ -195,30 +195,18 @@ export default function GamePage({ params }: PageProps) {
 
   return (
     <>
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-[#FAFAF9]/95 backdrop-blur-sm border-b border-[#E7E5E4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-[#F97316] rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-orange-500/20">
-                X
-              </div>
-              <span className="font-display font-bold text-xl text-[#1C1917] group-hover:text-[#F97316] transition-colors">
-                Xavrito
-              </span>
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#F5F5F4] hover:bg-[#E7E5E4] text-[#1C1917] rounded-lg text-sm font-medium transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              All Games
-            </Link>
-          </div>
+      {/* Breadcrumb */}
+      <div className="bg-[#FAFAF9] border-b border-[#E7E5E4] py-3 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto">
+          <nav className="flex items-center gap-2 text-sm text-[#78716C]">
+            <Link href="/" className="hover:text-[#F97316] transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/" className="hover:text-[#F97316] transition-colors">Games</Link>
+            <span>/</span>
+            <span className="text-[#1C1917] font-medium">{game.name}</span>
+          </nav>
         </div>
-      </nav>
+      </div>
 
       {/* Game Hero */}
       <section className="bg-[#FAFAF9] py-12 px-4 sm:px-6">
