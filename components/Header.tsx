@@ -54,7 +54,7 @@ export default function Header() {
           {/* Stats */}
           <div className="hidden md:flex items-center gap-4 text-sm flex-shrink-0">
             <span className="text-[#78716C]">
-              <strong className="text-[#1C1917]">50</strong> games
+              <strong className="text-[#1C1917]">37</strong> games
             </span>
             <Link
               href="/"
