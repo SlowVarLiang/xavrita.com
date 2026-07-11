@@ -3,7 +3,6 @@ import { Space_Grotesk, IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { defaultMetadata, createOrganizationSchema, createWebSiteSchema } from '@/lib/seo'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -26,31 +25,31 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Xavrito - Free HTML5 Games Portal',
+    default: 'Xavrito - Free HTML5 Games',
     template: '%s | Xavrito'
   },
-  description: 'Play free HTML5 browser games instantly. No downloads required. Action, puzzle, io, arcade and more.',
-  keywords: ['HTML5 games', 'free games', 'browser games', 'online games', 'mini games'],
+  description: 'Play free HTML5 browser games instantly. No downloads. No signups. Just fun.',
+  keywords: ['HTML5 games', 'free games', 'browser games', 'mini games', 'online games'],
   authors: [{ name: 'Xavrito' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://xavrita.com',
     siteName: 'Xavrito',
-    title: 'Xavrito - Free HTML5 Games Portal',
-    description: 'Play free HTML5 browser games instantly. No downloads required.',
+    title: 'Xavrito - Free HTML5 Games',
+    description: 'Play free HTML5 browser games instantly.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Xavrito - Free HTML5 Games Portal',
-    description: 'Play free HTML5 browser games instantly. No downloads required.',
+    title: 'Xavrito - Free HTML5 Games',
+    description: 'Play free HTML5 browser games instantly.',
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: 'https://xavrito.com/',
+    canonical: 'https://xavrita.com/',
   },
 }
 
@@ -62,14 +61,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(createOrganizationSchema()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebSiteSchema()) }}
-        />
         <script src="https://cdn.tailwindcss.com"></script>
         <script
           dangerouslySetInnerHTML={{
