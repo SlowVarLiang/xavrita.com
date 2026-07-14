@@ -97,25 +97,26 @@ export default function RootLayout({
             scroll-behavior: smooth;
           }
           ::selection {
-            background: #F97316;
+            background: #A78BFA;
             color: white;
           }
           body {
-            background-color: #FAFAF9;
+            background-color: #0a0910;
+            color: #fff;
           }
           ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
           }
           ::-webkit-scrollbar-track {
-            background: #FAFAF9;
+            background: #0a0910;
           }
           ::-webkit-scrollbar-thumb {
-            background: #E7E5E4;
+            background: #374151;
             border-radius: 4px;
           }
           ::-webkit-scrollbar-thumb:hover {
-            background: #F97316;
+            background: #A78BFA;
           }
         `}</style>
 
