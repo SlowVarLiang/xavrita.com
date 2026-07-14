@@ -51,6 +51,22 @@ export default function Header() {
             </div>
           </form>
 
+          {/* Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+            <Link
+              href="/wiki"
+              className="px-3 py-2 text-sm font-medium text-[#78716C] hover:text-[#1C1917] hover:bg-[#F5F5F4] rounded-lg transition-colors"
+            >
+              Wiki
+            </Link>
+            <Link
+              href="/guides"
+              className="px-3 py-2 text-sm font-medium text-[#78716C] hover:text-[#1C1917] hover:bg-[#F5F5F4] rounded-lg transition-colors"
+            >
+              Guides
+            </Link>
+          </nav>
+
           {/* Stats */}
           <div className="hidden md:flex items-center gap-4 text-sm flex-shrink-0">
             <span className="text-[#78716C]">

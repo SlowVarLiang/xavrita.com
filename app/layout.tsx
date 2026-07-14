@@ -1,24 +1,22 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google'
+import { Inter, Playfair_Display, IBM_Plex_Mono } from 'next/font/google'
 import Script from 'next/script'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-display',
+  variable: '--font-inter',
   display: 'swap',
 })
 
-const ibmPlexSans = IBM_Plex_Sans({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-body',
+  variable: '--font-playfair',
   display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
   variable: '--font-mono',
   display: 'swap',
 })
@@ -141,12 +139,10 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="font-body bg-[#FAFAF9] text-[#1C1917] min-h-screen flex flex-col antialiased">
-        <Header />
+      <body className="min-h-screen flex flex-col antialiased" style={{ fontFamily: "'Inter', sans-serif" }}>
         <main className="flex-1">
           {children}
         </main>
-        <Footer />
       </body>
     </html>
   )
