@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display, IBM_Plex_Mono } from 'next/font/google'
 import Script from 'next/script'
+import './globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -61,66 +62,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              tailwind.config = {
-                darkMode: 'class',
-                theme: {
-                  extend: {
-                    colors: {
-                      void: '#FAFAF9',
-                      surface: '#FFFFFF',
-                      border: '#E7E5E4',
-                      'accent-violet': '#8b5cf6',
-                      'accent-cyan': '#22d3ee',
-                      'accent-amber': '#f59e0b',
-                      'text-primary': '#1C1917',
-                      'text-muted': '#78716C',
-                    },
-                    fontFamily: {
-                      display: ['var(--font-display)', 'system-ui', 'sans-serif'],
-                      body: ['var(--font-body)', 'system-ui', 'sans-serif'],
-                      mono: ['var(--font-mono)', 'monospace'],
-                    },
-                  }
-                }
-              }
-            `
-          }}
-        />
-        <style>{`
-          html {
-            scroll-behavior: smooth;
-          }
-          ::selection {
-            background: #A78BFA;
-            color: white;
-          }
-          body {
-            background-color: #0a0910;
-            color: #fff;
-          }
-          ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-          }
-          ::-webkit-scrollbar-track {
-            background: #0a0910;
-          }
-          ::-webkit-scrollbar-thumb {
-            background: #374151;
-            border-radius: 4px;
-          }
-          ::-webkit-scrollbar-thumb:hover {
-            background: #A78BFA;
-          }
-        `}</style>
-
-        {/* Google Analytics */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQESXXPK9H" strategy="afterInteractive" />
         <Script id="ga-config" strategy="afterInteractive">
           {`
@@ -140,7 +83,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-screen flex flex-col antialiased" style={{ fontFamily: "'Inter', sans-serif" }}>
+      <body className="min-h-screen flex flex-col antialiased">
         <main className="flex-1">
           {children}
         </main>
