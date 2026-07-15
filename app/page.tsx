@@ -6,6 +6,10 @@ import { html5Games, categories, getFeaturedGame } from '@/lib/html5-games'
 import Html5GameCard from '@/components/Html5GameCard'
 import RecentGames from '@/components/RecentGames'
 import HotGames from '@/components/HotGames'
+import MobileMenu from '@/components/MobileMenu'
+import BackToTop from '@/components/BackToTop'
+import CollectionCard from '@/components/CollectionCard'
+import { getPopulatedCollections } from '@/lib/collections'
 
 /* ────────────────────────────────────────── */
 /* ASCII Cursor Trail (optimized RAF)        */
@@ -124,49 +128,70 @@ function CursorSpotlight() {
 /* Navigation                                 */
 /* ────────────────────────────────────────── */
 function Nav() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5">
-      <Link href="/" className="flex items-center gap-2 group">
-        <svg className="w-9 h-9" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="4" width="20" height="14" rx="2" fill="#A78BFA"/>
-          <polygon points="13,8 13,14 19,11" fill="#1C1917"/>
-          <rect x="6" y="20" width="20" height="8" rx="1" fill="#374151"/>
-          <circle cx="11" cy="24" r="2" fill="#6B7280"/>
-          <rect x="10.3" y="20" width="1.4" height="5" rx="0.5" fill="#9CA3AF"/>
-          <circle cx="18" cy="23" r="1.2" fill="#EF4444"/>
-          <circle cx="22" cy="25" r="1.2" fill="#3B82F6"/>
-        </svg>
-        <span className="font-display font-bold text-xl text-white group-hover:text-purple-400 transition-colors">
-          Xavrito
-        </span>
-      </Link>
-      <div className="hidden md:flex items-center gap-1">
-        <Link
-          href="/favorites"
-          className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-        >
-          ❤️ Favorites
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5">
+        <Link href="/" className="flex items-center gap-2 group">
+          <svg className="w-9 h-9" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="4" width="20" height="14" rx="2" fill="#A78BFA"/>
+            <polygon points="13,8 13,14 19,11" fill="#1C1917"/>
+            <rect x="6" y="20" width="20" height="8" rx="1" fill="#374151"/>
+            <circle cx="11" cy="24" r="2" fill="#6B7280"/>
+            <rect x="10.3" y="20" width="1.4" height="5" rx="0.5" fill="#9CA3AF"/>
+            <circle cx="18" cy="23" r="1.2" fill="#EF4444"/>
+            <circle cx="22" cy="25" r="1.2" fill="#3B82F6"/>
+          </svg>
+          <span className="font-display font-bold text-xl text-white group-hover:text-purple-400 transition-colors">
+            Xavrito
+          </span>
         </Link>
-        <Link
-          href="/wiki"
-          className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+        <div className="hidden md:flex items-center gap-1">
+          <Link
+            href="/favorites"
+            className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+          >
+            ❤️ Favorites
+          </Link>
+          <Link
+            href="/collections"
+            className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+          >
+            Collections
+          </Link>
+          <Link
+            href="/wiki"
+            className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+          >
+            Wiki
+          </Link>
+          <Link
+            href="/guides"
+            className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+          >
+            Guides
+          </Link>
+          <Link
+            href="#games"
+            className="ml-2 px-4 py-2 bg-purple-500 hover:bg-purple-400 text-white text-sm font-medium rounded-lg transition-colors shadow-lg shadow-purple-500/30"
+          >
+            Play Now
+          </Link>
+        </div>
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setMenuOpen(true)}
+          className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 text-white/70 hover:text-white transition-colors"
+          aria-label="Open menu"
         >
-          Wiki
-        </Link>
-        <Link
-          href="/guides"
-          className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-        >
-          Guides
-        </Link>
-        <Link
-          href="#games"
-          className="ml-2 px-4 py-2 bg-purple-500 hover:bg-purple-400 text-white text-sm font-medium rounded-lg transition-colors shadow-lg shadow-purple-500/30"
-        >
-          Play Now
-        </Link>
-      </div>
-    </nav>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
   )
 }
 
@@ -474,6 +499,35 @@ function ExploreSection() {
 }
 
 /* ────────────────────────────────────────── */
+/* Collections Section                        */
+/* ────────────────────────────────────────── */
+function CollectionsSection() {
+  const collectionsData = getPopulatedCollections(html5Games)
+
+  return (
+    <section className="relative z-10 px-4 sm:px-6 py-16 md:py-24 border-t border-white/10" style={{ background: 'linear-gradient(180deg, #13121c 0%, #0a0910 100%)' }}>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">01</p>
+          <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
+            Curated <span className="text-transparent bg-clip-text hero-gradient">Collections</span>
+          </h2>
+          <p className="text-white/60 max-w-xl mx-auto">
+            Hand-picked game collections for every mood and moment
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {collectionsData.map((collection) => (
+            <CollectionCard key={collection.id} collection={collection} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ────────────────────────────────────────── */
 /* Features Section                           */
 /* ────────────────────────────────────────── */
 function FeaturesSection() {
@@ -586,11 +640,13 @@ export default function HomePage() {
         <StatsBar />
         <RecentGames />
         <HotGames />
+        <CollectionsSection />
         <GamesSection />
         <ExploreSection />
         <FeaturesSection />
         <Footer />
       </main>
+      <BackToTop />
     </div>
   )
 }
