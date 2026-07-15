@@ -218,13 +218,13 @@ function HeroSection() {
             [ Free HTML5 Games ]
           </span>
         </div>
-        <h1 className="hero-anim hero-reveal text-white leading-[0.95] font-semibold tracking-tight" style={{ letterSpacing: '-0.04em' }}>
-          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl" style={{ color: '#f97316' }}>
+        <h1 className="hero-anim hero-reveal text-white leading-[0.95] tracking-tight" style={{ letterSpacing: '0.02em' }}>
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display" style={{ color: '#f97316' }}>
             Play Free
           </span>
           <span
-            className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-italic"
-            style={{ fontStyle: 'italic', fontFamily: "'Playfair Display', serif", animationDelay: '0.2s', color: '#f97316' }}
+            className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display"
+            style={{ animationDelay: '0.2s', color: '#f97316' }}
           >
             HTML5 Games
           </span>

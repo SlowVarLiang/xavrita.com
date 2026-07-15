@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display, IBM_Plex_Mono } from 'next/font/google'
+import { Inter, Playfair_Display, IBM_Plex_Mono, Bebas_Neue } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
@@ -19,6 +19,13 @@ const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-mono',
+  display: 'swap',
+})
+
+const bebasNeue = Bebas_Neue({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-display',
   display: 'swap',
 })
 
@@ -83,7 +90,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-screen flex flex-col antialiased">
+      <body className={`min-h-screen flex flex-col antialiased ${inter.variable} ${playfair.variable} ${ibmPlexMono.variable} ${bebasNeue.variable}`}>
         <main className="flex-1">
           {children}
         </main>
