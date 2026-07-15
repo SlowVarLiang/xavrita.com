@@ -56,3 +56,48 @@ body {
   mask-position: 0 0;
   -webkit-mask-position: 0 0;
 }
+
+/* Hero gradient text effect */
+.hero-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Hero glow effect */
+.hero-glow {
+  text-shadow: 0 0 40px rgba(249, 115, 22, 0.5), 0 0 80px rgba(168, 85, 247, 0.3);
+}
+
+/* Hero animations */
+@keyframes heroReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero-anim {
+  animation-fill-mode: both;
+}
+
+.hero-reveal {
+  animation: heroReveal 0.8s ease-out forwards;
+}
+
+.hero-fade {
+  animation: heroFade 1s ease-out forwards;
+}
