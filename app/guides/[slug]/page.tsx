@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import VideoCard from '@/components/VideoCard'
 
 interface PageProps {
   params: { slug: string }
@@ -184,13 +185,10 @@ export default function GuidePage({ params }: PageProps) {
   // Check if this is the Once Human guide for special styling
   const isOnceHuman = params.slug === 'once-human-best-builds'
 
-  // Once Human specific images - real game screenshots from Steam
+  // Once Human specific images - real game videos from Steam CDN
   const onceHumanImages = {
     hero: '/images/once-human/hero_wide.jpg',
-    weapons: '/images/once-human/weapons.jpg',
-    monsters: '/images/once-human/monsters.jpg',
-    survival: '/images/once-human/survival.jpg',
-    building: '/images/once-human/building.jpg',
+    heroVideo: '/images/once-human/survival.webm',
   }
 
   return (
@@ -317,10 +315,13 @@ export default function GuidePage({ params }: PageProps) {
                   <p className="text-white/60 leading-relaxed text-lg">{guide.content.overview}</p>
                 </div>
                 <div className="relative rounded-2xl overflow-hidden">
-                  <img
-                    src={onceHumanImages.survival}
-                    alt="Survival"
+                  <video
+                    src={onceHumanImages.heroVideo}
                     className="w-full h-full object-cover"
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6">
@@ -336,24 +337,13 @@ export default function GuidePage({ params }: PageProps) {
             )}
           </div>
 
-          {/* Section Images for Once Human */}
+          {/* Section Videos for Once Human */}
           {isOnceHuman && (
-            <div className="grid grid-cols-3 gap-4 mb-12">
-              <div className="relative rounded-xl overflow-hidden aspect-video">
-                <img src={onceHumanImages.weapons} alt="Weapons" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-2 left-2 text-white text-xs font-medium">WEAPONS</span>
-              </div>
-              <div className="relative rounded-xl overflow-hidden aspect-video">
-                <img src={onceHumanImages.monsters} alt="Monsters" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-2 left-2 text-white text-xs font-medium">MUTANTS</span>
-              </div>
-              <div className="relative rounded-xl overflow-hidden aspect-video">
-                <img src={onceHumanImages.building} alt="Building" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-2 left-2 text-white text-xs font-medium">BUILDING</span>
-              </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+              <VideoCard src="/images/once-human/weapons.webm" label="WEAPONS" />
+              <VideoCard src="/images/once-human/monsters.webm" label="MUTANTS" />
+              <VideoCard src="/images/once-human/building.webm" label="BUILDING" />
+              <VideoCard src="/images/once-human/survival.webm" label="SURVIVAL" />
             </div>
           )}
 
