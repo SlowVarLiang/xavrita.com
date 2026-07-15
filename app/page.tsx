@@ -103,6 +103,22 @@ function AsciiCursorTrail() {
 }
 
 /* ────────────────────────────────────────── */
+/* Cursor Spotlight (CSS-based, performant)   */
+/* ────────────────────────────────────────── */
+function CursorSpotlight() {
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`)
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`)
+    }
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  return null
+}
+
+/* ────────────────────────────────────────── */
 /* Navigation                                 */
 /* ────────────────────────────────────────── */
 function Nav() {
@@ -166,10 +182,22 @@ function HeroSection() {
         }}
       />
 
-      {/* Background layer */}
+      {/* Background layer with CSS spotlight reveal */}
       <div
-        className="absolute inset-0 bg-center bg-cover bg-no-repeat z-20"
-        style={{ backgroundImage: 'url("/背景层.png")' }}
+        className="absolute inset-0 z-20 spotlight-reveal"
+        style={{
+          backgroundImage: 'url("/背景层.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+
+      {/* Spotlight overlay using radial gradient at cursor position */}
+      <div
+        className="absolute inset-0 z-30 pointer-events-none spotlight-mask"
+        style={{
+          background: `radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, rgba(10, 9, 16, 0.6) 100%)`,
+        }}
       />
 
       {/* Dark overlay */}
@@ -519,6 +547,7 @@ export default function HomePage() {
         backgroundAttachment: 'fixed',
       }}
     >
+      <CursorSpotlight />
       <Nav />
       <AsciiCursorTrail />
 
