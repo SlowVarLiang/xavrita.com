@@ -219,7 +219,7 @@ function HeroSection() {
           </span>
         </div>
         <h1 className="hero-anim hero-reveal text-white leading-[0.95] font-semibold tracking-tight" style={{ letterSpacing: '-0.04em' }}>
-          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient">
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl" style={{ color: '#f97316' }}>
             Play Free
           </span>
           <span
@@ -316,7 +316,7 @@ function GamesSection() {
         <div className="text-center mb-12">
           <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">01</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-500">Games</span>
+            Browse <span className="text-transparent bg-clip-text hero-gradient">Games</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
             Explore our collection of free HTML5 games. Puzzle, Action, Arcade, Racing and more.
@@ -373,7 +373,7 @@ function ExploreSection() {
         <div className="text-center mb-12">
           <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">02</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Explore <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-500">More</span>
+            Explore <span className="text-transparent bg-clip-text hero-gradient">More</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
             Dive deeper into game knowledge with wikis and strategy guides
