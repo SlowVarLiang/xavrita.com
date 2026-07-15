@@ -6,7 +6,7 @@ import { html5Games, categories, getFeaturedGame } from '@/lib/html5-games'
 import Html5GameCard from '@/components/Html5GameCard'
 
 /* ────────────────────────────────────────── */
-/* ASCII Cursor Trail (from 000-template)    */
+/* ASCII Cursor Trail (optimized RAF)        */
 /* ────────────────────────────────────────── */
 const TRAIL_CHARS = '@#H%&*=?+;:,.'.split('')
 const MAX_PARTICLES = 60
@@ -41,6 +41,33 @@ function AsciiCursorTrail() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
+    let lastTime = 0
+    const draw = (time: number) => {
+      const dt = Math.min((time - lastTime) / 1000, 0.1)
+      lastTime = time
+
+      // Update particles
+      particlesRef.current = particlesRef.current.filter(p => {
+        p.x += p.vx
+        p.y += p.vy
+        p.vy += 0.02
+        p.life -= dt / p.maxLife
+        return p.life > 0
+      })
+
+      // Draw
+      ctx.clearRect(0, 0, w, h)
+      ctx.font = `${fontSize}px "IBM Plex Mono", ui-monospace, monospace`
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      for (const p of particlesRef.current) {
+        ctx.fillStyle = `rgba(167, 139, 250, ${p.life * 0.7})`
+        ctx.fillText(p.char, p.x, p.y)
+      }
+
+      rafRef.current = requestAnimationFrame(draw)
+    }
+
     const spawn = (mx: number, my: number) => {
       const dx = mx - lastSpawnRef.current.x
       const dy = my - lastSpawnRef.current.y
@@ -50,30 +77,15 @@ function AsciiCursorTrail() {
         if (particlesRef.current.length >= MAX_PARTICLES) particlesRef.current.shift()
         const angle = Math.random() * Math.PI * 2
         particlesRef.current.push({
-          x: mx + (Math.random() - 0.5) * 8, y: my + (Math.random() - 0.5) * 8,
+          x: mx + (Math.random() - 0.5) * 8,
+          y: my + (Math.random() - 0.5) * 8,
           vx: Math.cos(angle) * (0.3 + Math.random() * 0.7),
           vy: Math.sin(angle) * (0.3 + Math.random() * 0.7),
           char: TRAIL_CHARS[Math.floor(Math.random() * TRAIL_CHARS.length)] ?? '.',
-          life: 1, maxLife: 0.6 + Math.random() * 0.6,
+          life: 1,
+          maxLife: 0.6 + Math.random() * 0.6,
         })
       }
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h)
-      ctx.font = `${fontSize}px "IBM Plex Mono", ui-monospace, monospace`
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
-      const dt = 1 / 60
-      particlesRef.current = particlesRef.current.filter(p => {
-        p.x += p.vx; p.y += p.vy; p.vy += 0.02
-        p.life -= dt / p.maxLife
-        return p.life > 0
-      })
-      for (const p of particlesRef.current) {
-        ctx.fillStyle = `rgba(167, 139, 250, ${p.life * 0.7})`
-        ctx.fillText(p.char, p.x, p.y)
-      }
-      rafRef.current = requestAnimationFrame(draw)
     }
 
     resize()
@@ -88,51 +100,6 @@ function AsciiCursorTrail() {
   }, [])
 
   return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-[5]" aria-hidden />
-}
-
-/* ────────────────────────────────────────── */
-/* Hero Image with Cursor Reveal             */
-/* ────────────────────────────────────────── */
-const HERO_IMAGE = '/背景层.png'
-const HERO_IMAGE_REVEAL = '/光标遮罩层.png'
-const SPOTLIGHT_R = 260
-
-function RevealLayer({ image, cursorX, cursorY }: { image: string; cursorX: number; cursorY: number }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [maskImage, setMaskImage] = useState('none')
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    const gradient = ctx.createRadialGradient(cursorX, cursorY, 0, cursorX, cursorY, SPOTLIGHT_R)
-    gradient.addColorStop(0, 'rgba(255,255,255,1)')
-    gradient.addColorStop(0.4, 'rgba(255,255,255,1)')
-    gradient.addColorStop(0.6, 'rgba(255,255,255,0.75)')
-    gradient.addColorStop(0.75, 'rgba(255,255,255,0.4)')
-    gradient.addColorStop(0.88, 'rgba(255,255,255,0.12)')
-    gradient.addColorStop(1, 'rgba(255,255,255,0)')
-    ctx.fillStyle = gradient
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-    setMaskImage(`url("${canvas.toDataURL()}")`)
-  }, [cursorX, cursorY])
-
-  return (
-    <>
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
-      <div
-        className="absolute inset-0 bg-center bg-cover bg-no-repeat z-30 pointer-events-none"
-        style={{
-          backgroundImage: `url("${image}")`,
-          maskImage, WebkitMaskImage: maskImage,
-          maskSize: '100% 100%', WebkitMaskSize: '100% 100%',
-        }}
-      />
-    </>
-  )
 }
 
 /* ────────────────────────────────────────── */
@@ -182,7 +149,7 @@ function Nav() {
 /* ────────────────────────────────────────── */
 /* Hero Section                               */
 /* ────────────────────────────────────────── */
-function HeroSection({ cursorPos }: { cursorPos: { x: number; y: number } }) {
+function HeroSection() {
   const featuredGame = getFeaturedGame()
 
   return (
@@ -202,11 +169,8 @@ function HeroSection({ cursorPos }: { cursorPos: { x: number; y: number } }) {
       {/* Background layer */}
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat z-20"
-        style={{ backgroundImage: `url("${HERO_IMAGE}")` }}
+        style={{ backgroundImage: 'url("/背景层.png")' }}
       />
-
-      {/* Mask layer (on top of background) */}
-      <RevealLayer image={HERO_IMAGE_REVEAL} cursorX={cursorPos.x} cursorY={cursorPos.y} />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 z-40 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
@@ -327,7 +291,7 @@ function GamesSection() {
         <div className="text-center mb-12">
           <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">01</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-purple-400">Games</span>
+            Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-500">Games</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
             Explore our collection of free HTML5 games. Puzzle, Action, Arcade, Racing and more.
@@ -384,7 +348,7 @@ function ExploreSection() {
         <div className="text-center mb-12">
           <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">02</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Explore <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-purple-400">More</span>
+            Explore <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-500">More</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
             Dive deeper into game knowledge with wikis and strategy guides
@@ -539,29 +503,7 @@ function Footer() {
 /* ────────────────────────────────────────── */
 /* Main Page                                  */
 /* ────────────────────────────────────────── */
-const featuredGame = getFeaturedGame()
-
 export default function HomePage() {
-  const mouseRef = useRef({ x: 0, y: 0 })
-  const smoothRef = useRef({ x: -999, y: -999 })
-  const rafRef = useRef(0)
-  const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 })
-
-  useEffect(() => {
-    const animate = () => {
-      smoothRef.current.x += (mouseRef.current.x - smoothRef.current.x) * 0.1
-      smoothRef.current.y += (mouseRef.current.y - smoothRef.current.y) * 0.1
-      setCursorPos({ x: smoothRef.current.x, y: smoothRef.current.y })
-      rafRef.current = requestAnimationFrame(animate)
-    }
-    rafRef.current = requestAnimationFrame(animate)
-    window.addEventListener('mousemove', e => { mouseRef.current = { x: e.clientX, y: e.clientY } })
-    return () => {
-      window.removeEventListener('mousemove', e => { mouseRef.current = { x: e.clientX, y: e.clientY } })
-      cancelAnimationFrame(rafRef.current)
-    }
-  }, [])
-
   return (
     <div
       className="min-h-screen tracking-[-0.02em]"
@@ -581,7 +523,7 @@ export default function HomePage() {
       <AsciiCursorTrail />
 
       <main className="relative z-[1]">
-        <HeroSection cursorPos={cursorPos} />
+        <HeroSection />
         <StatsBar />
         <GamesSection />
         <ExploreSection />

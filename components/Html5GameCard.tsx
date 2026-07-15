@@ -9,20 +9,20 @@ export default function Html5GameCard({ game }: Html5GameCardProps) {
   return (
     <Link
       href={`/games/${game.slug}`}
-      className="group block bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10"
+      className="group block bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-200"
     >
       {/* Thumbnail */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={game.thumbnail}
           alt={game.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
 
         {/* Play Overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform duration-300">
+        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center shadow-lg">
             <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
@@ -41,7 +41,7 @@ export default function Html5GameCard({ game }: Html5GameCardProps) {
       <div className="p-3">
         <div className="flex items-center gap-1.5 mb-1">
           <span className="text-sm">{game.emoji}</span>
-          <h3 className="font-semibold text-white text-sm truncate group-hover:text-orange-400 transition-colors">
+          <h3 className="font-semibold text-white text-sm truncate group-hover:text-purple-400 transition-colors">
             {game.name}
           </h3>
         </div>
