@@ -182,9 +182,9 @@ function HeroSection() {
         }}
       />
 
-      {/* Background layer with CSS spotlight reveal */}
+      {/* Background layer */}
       <div
-        className="absolute inset-0 z-20 spotlight-reveal"
+        className="absolute inset-0 z-20"
         style={{
           backgroundImage: 'url("/背景层.png")',
           backgroundSize: 'cover',
@@ -192,11 +192,13 @@ function HeroSection() {
         }}
       />
 
-      {/* Spotlight overlay using radial gradient at cursor position */}
+      {/* Reveal layer with CSS mask - shows 光标遮罩层.png only around cursor */}
       <div
-        className="absolute inset-0 z-30 pointer-events-none spotlight-mask"
+        className="absolute inset-0 z-30 spotlight-reveal"
         style={{
-          background: `radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, rgba(10, 9, 16, 0.6) 100%)`,
+          backgroundImage: 'url("/光标遮罩层.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       />
 

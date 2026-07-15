@@ -35,23 +35,24 @@ body {
   background: #A78BFA;
 }
 
-/* Spotlight mask for hero image reveal */
-.spotlight-mask {
-  background: radial-gradient(
-    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    transparent 0%,
-    rgba(10, 9, 16, 0.7) 100%
-  ) !important;
+/* Spotlight reveal for hero image - pure CSS mask approach */
+.spotlight-reveal {
   mask-image: radial-gradient(
-    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    circle 180px at var(--mouse-x, 50%) var(--mouse-y, 50%),
     black 0%,
-    black 60%,
+    black 50%,
     transparent 100%
   );
   -webkit-mask-image: radial-gradient(
-    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    circle 180px at var(--mouse-x, 50%) var(--mouse-y, 50%),
     black 0%,
-    black 60%,
+    black 50%,
     transparent 100%
   );
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: 0 0;
+  -webkit-mask-position: 0 0;
 }
