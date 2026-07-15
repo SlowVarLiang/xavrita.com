@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { html5Games, getGameBySlug, getRelatedGames } from '@/lib/html5-games'
 import GameEmbed from '@/components/GameEmbed'
 import Html5GameCard from '@/components/Html5GameCard'
+import GamePageActions from '@/components/GamePageActions'
 
 interface PageProps {
   params: { slug: string }
@@ -182,6 +183,11 @@ export default function GamePage({ params }: PageProps) {
                   </div>
                 </div>
               )}
+
+              {/* Favorite & Track */}
+              <div className="mt-6">
+                <GamePageActions slug={game.slug} />
+              </div>
             </div>
 
             <div className="lg:col-span-2">

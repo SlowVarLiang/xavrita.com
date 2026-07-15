@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { Html5Game } from '@/lib/html5-games'
+import FavoritesButton from './FavoritesButton'
 
 interface Html5GameCardProps {
   game: Html5Game
@@ -34,6 +37,11 @@ export default function Html5GameCard({ game }: Html5GameCardProps) {
           <span className="px-2 py-0.5 bg-black/60 backdrop-blur-sm text-white/80 rounded text-[10px] font-medium">
             {game.category}
           </span>
+        </div>
+
+        {/* Favorites Button */}
+        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <FavoritesButton slug={game.slug} size="sm" />
         </div>
       </div>
 

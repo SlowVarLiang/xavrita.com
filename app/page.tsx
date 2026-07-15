@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { html5Games, categories, getFeaturedGame } from '@/lib/html5-games'
 import Html5GameCard from '@/components/Html5GameCard'
+import RecentGames from '@/components/RecentGames'
+import HotGames from '@/components/HotGames'
 
 /* ────────────────────────────────────────── */
 /* ASCII Cursor Trail (optimized RAF)        */
@@ -139,6 +141,12 @@ function Nav() {
         </span>
       </Link>
       <div className="hidden md:flex items-center gap-1">
+        <Link
+          href="/favorites"
+          className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+        >
+          ❤️ Favorites
+        </Link>
         <Link
           href="/wiki"
           className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
@@ -576,6 +584,8 @@ export default function HomePage() {
       <main className="relative z-[1]">
         <HeroSection />
         <StatsBar />
+        <RecentGames />
+        <HotGames />
         <GamesSection />
         <ExploreSection />
         <FeaturesSection />
