@@ -214,17 +214,17 @@ function HeroSection() {
       {/* Content */}
       <div className="absolute top-[12%] left-0 right-0 flex flex-col items-center text-center px-5 z-50">
         <div className="hero-anim hero-reveal mb-6">
-          <span className="font-mono text-[11px] tracking-[0.22em] text-purple-400/80 uppercase">
+          <span className="font-mono text-[11px] tracking-[0.22em] uppercase" style={{ color: '#f97316' }}>
             [ Free HTML5 Games ]
           </span>
         </div>
         <h1 className="hero-anim hero-reveal text-white leading-[0.95] tracking-tight" style={{ letterSpacing: '0.02em' }}>
-          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display" style={{ color: '#f97316' }}>
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display" style={{ color: '#ffffff' }}>
             Play Free
           </span>
           <span
             className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display"
-            style={{ animationDelay: '0.2s', color: '#f97316' }}
+            style={{ animationDelay: '0.2s', color: '#ffffff' }}
           >
             HTML5 Games
           </span>
