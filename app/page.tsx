@@ -219,7 +219,7 @@ function HeroSection() {
           </span>
         </div>
         <h1 className="hero-anim hero-reveal text-white leading-[0.95] font-semibold tracking-tight" style={{ letterSpacing: '-0.04em' }}>
-          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl">
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient hero-glow">
             Play Free
           </span>
           <span
