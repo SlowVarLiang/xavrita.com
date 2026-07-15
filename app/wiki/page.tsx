@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function WikiPage() {
-  const wikiGames = html5Games.slice(0, 20)
+  const wikiGames = html5Games.slice(0, 56)
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #0a0910 0%, #13121c 100%)' }}>
