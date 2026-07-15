@@ -10,6 +10,7 @@ import MobileMenu from '@/components/MobileMenu'
 import BackToTop from '@/components/BackToTop'
 import CollectionCard from '@/components/CollectionCard'
 import { getPopulatedCollections } from '@/lib/collections'
+import DailyChallenge from '@/components/DailyChallenge'
 
 /* ────────────────────────────────────────── */
 /* ASCII Cursor Trail (optimized RAF)        */
@@ -640,6 +641,7 @@ export default function HomePage() {
         <StatsBar />
         <RecentGames />
         <HotGames />
+        <DailyChallenge />
         <CollectionsSection />
         <GamesSection />
         <ExploreSection />
