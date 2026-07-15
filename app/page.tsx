@@ -242,9 +242,18 @@ function HeroSection() {
               <p className="text-white/60 text-sm">{featuredGame.category}</p>
             </div>
           </div>
-          <p className="text-white/50 text-sm leading-relaxed">
+          <p className="text-white/50 text-sm leading-relaxed mb-4">
             {featuredGame.description}
           </p>
+          <Link
+            href={`/games/${featuredGame.slug}`}
+            className="inline-flex items-center gap-2 px-5 py-2 bg-purple-500 hover:bg-purple-400 text-white text-sm font-medium rounded-full transition-colors shadow-lg shadow-purple-500/30"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Play Now
+          </Link>
         </div>
       )}
 
@@ -276,17 +285,17 @@ function StatsBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-center gap-8 md:gap-16 flex-wrap">
           <div className="text-center">
-            <span className="font-mono text-2xl md:text-3xl font-bold text-purple-400">80+</span>
+            <span className="font-display text-3xl md:text-4xl font-normal" style={{ color: '#f97316' }}>80+</span>
             <p className="text-xs text-white/50 mt-1">Free Games</p>
           </div>
           <div className="w-px h-8 bg-white/10 hidden md:block" />
           <div className="text-center">
-            <span className="font-mono text-2xl md:text-3xl font-bold text-purple-400">10</span>
+            <span className="font-display text-3xl md:text-4xl font-normal" style={{ color: '#f97316' }}>10</span>
             <p className="text-xs text-white/50 mt-1">Categories</p>
           </div>
           <div className="w-px h-8 bg-white/10 hidden md:block" />
           <div className="text-center">
-            <span className="font-mono text-2xl md:text-3xl font-bold text-white">100%</span>
+            <span className="font-display text-3xl md:text-4xl font-normal text-white">100%</span>
             <p className="text-xs text-white/50 mt-1">Free Forever</p>
           </div>
         </div>
@@ -323,21 +332,37 @@ function GamesSection() {
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-8 justify-center flex-wrap">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                activeCategory === category
-                  ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/30'
-                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+        {/* Search & Filter */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+          {/* Search */}
+          <div className="relative w-full sm:w-auto">
+            <input
+              type="text"
+              placeholder="Search games..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full sm:w-64 px-4 py-2 pl-10 bg-white/5 border border-white/10 rounded-full text-white placeholder-white/40 text-sm focus:outline-none focus:border-purple-500/50 transition-colors"
+            />
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          {/* Category Filter */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 justify-center flex-wrap">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === category
+                    ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/30'
+                    : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Games Grid */}
