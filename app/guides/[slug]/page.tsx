@@ -17,21 +17,25 @@ const GUIDE_DATA: Record<string, {
   content: { overview: string; sections: { title: string; content: string; tips?: string[] }[] }
 }> = {
   'once-human-best-builds': {
-    title: 'Once Human: Best Builds Guide', category: 'Survival', excerpt: 'Dominate the post-apocalyptic world with the best builds in Once Human.',
-    emoji: '🔧', updatedAt: '2026-07-15', readingTime: '10 min read',
+    title: 'Once Human: Best Builds Guide', category: 'Survival', excerpt: 'Master the post-apocalyptic wasteland with the most powerful builds in Once Human.',
+    emoji: '🔧', updatedAt: '2026-07-15', readingTime: '12 min read',
     content: {
-      overview: 'Once Human is a multiplayer survival game where you battle monsters, build bases, and compete for resources in a harsh open world.',
+      overview: 'Once Human (also known as Seven Days World / 七日世界) is a NetEase-developed multiplayer survival game set in a bizarre post-apocalyptic world. Hunt bosses, build bases, craft legendary weapons, and survive the chaos with your squad.',
       sections: [
-        { title: 'Understanding the Build System', content: 'Once Human uses a mod system called "Memetic Specialization" that determines your playstyle.',
-          tips: ['Choose your specialization early', 'Balance offense and defense', 'Consider your group role'] },
-        { title: 'Best Sniper Build', content: 'The Sniper build focuses on high burst damage from distance.',
-          tips: ['Maximize rifle damage stats', 'Use terrain for elevation', 'Pair with a spotter for bonuses'] },
-        { title: 'Best Melee/Brute Build', content: 'The Brute build is for players who get up close and personal.',
-          tips: ['Stack close-range damage', 'Use heavy weapons like hammers', 'Build for high survivability'] },
-        { title: 'Best Support/Builder Build', content: 'The Builder support build helps your team survive and thrive.',
-          tips: ['Focus on resource gathering', 'Build defensive structures', 'Healing and buffs are key'] },
-        { title: 'Stat Distribution Tips', content: '分配你的属性点 wisely to maximize your build effectiveness.',
-          tips: ['Prioritize primary stat for your role', 'Don\'t neglect stamina', 'Save points for late game'] }
+        { title: 'The Memetic Specialization System', content: 'Your power in Once Human comes from Memory Anomalies - strange abilities unlocked through the mod system. There are three core specializations: Devourers (burst damage), Wanderers (mobility), and Tidecaller (support). Choose wisely, as respeccing costs resources.',
+          tips: ['Devourer = glass cannon damage dealer', 'Wanderer = mobile scout and flanker', 'Tidecaller = healer and buffer for groups'] },
+        { title: 'The Devourer Sniper Build - One Shot, One Kill', content: 'Devourer snipers dominate the damage charts. Stack Critical Hit Rate and Critical Damage on your mods. The SR-25 and AWP-style weapons reign supreme. Find high ground, stay hidden, and delete enemies before they know what hit them.',
+          tips: ['Use suppressors for stealth kills', 'Pair with a Wanderer spotter', 'Aim for headshots - 2.5x multiplier'] },
+        { title: 'The Wanderer SMG Rush Build - In Your Face', content: 'Wanderers with SMGs are terrifying up close. High mobility lets you flank and melt enemies before they can react. The Vector and UMP45 are popular choices. Stack fire rate and movement speed mods.',
+          tips: ['Always keep moving - standing still is death', 'Use smokes to close distance', 'Flank from unexpected angles'] },
+        { title: 'The Brute Shotgun Build - Point Blank Chaos', content: 'Nothing beats the satisfaction of a point-blank shotgun blast. The SPAS-12 and M870 are devastating at close range. Brutes can tank some damage too - perfect for aggressive push strategies into enemy bases.',
+          tips: ['Wait until enemies are within 5 meters', 'Aim center-mass for maximum pellet spread', 'Bring a secondary SMG for emergencies'] },
+        { title: 'The Tidecaller Support Build - Keep Your Squad Alive', content: 'Tidecallers are the backbone of any serious squad. Healing output, damage buffs, and utility skills make them invaluable. Don\'t underestimate support - a good Tidecaller can turn the tide of any fight.',
+          tips: ['Position behind frontliners', 'Save emergency heal for critical moments', 'Mark enemy positions for the team'] },
+        { title: 'Best Weapons Tier List', content: 'S-Tier: SR-25 (sniper), Vector (SMG), M870 (shotgun). A-Tier: AK-47 (assault), MP5 (SMG), AWM (sniper). B-Tier: M4A1 (assault), Desert Eagle (pistol). Always upgrade weapons at the Blacksmith using materials from boss kills.',
+          tips: ['Craft weapons at Tier 3+ for full potential', 'Check stats before equipping - base variants vary', 'Dupes aren\'t necessary - focus on one main weapon'] },
+        { title: 'Early Game Progression Tips', content: 'Day 1-3: Focus on gathering basic resources and completing main quests. Day 4-7: Start building your base and farming event bosses. Week 2+: Join a faction for PvE events and territory wars. Don\'t waste resources on throwaway builds early!',
+          tips: ['Prioritize a weapon over armor initially', 'Do daily bosses for mod materials', 'Trading post is your friend for economics'] }
       ]
     }
   },
