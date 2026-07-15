@@ -181,10 +181,21 @@ export default function GuidePage({ params }: PageProps) {
   const guide = GUIDE_DATA[params.slug]
   if (!guide) notFound()
 
+  // Check if this is the Once Human guide for special styling
+  const isOnceHuman = params.slug === 'once-human-best-builds'
+
+  // Once Human specific images (placeholder - replace with actual game screenshots)
+  const onceHumanImages = {
+    hero: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1920&q=80',
+    weapons: 'https://images.unsplash.com/photo-1511882150382-421056c89033?w=800&q=80',
+    monsters: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
+    survival: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80',
+  }
+
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #0a0910 0%, #13121c 100%)' }}>
+    <div className="min-h-screen" style={{ background: '#0a0910' }}>
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5 border-b border-white/10" style={{ background: 'rgba(10, 9, 16, 0.9)', backdropFilter: 'blur(12px)' }}>
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5" style={{ background: 'rgba(10, 9, 16, 0.85)', backdropFilter: 'blur(16px)' }}>
         <Link href="/" className="flex items-center gap-2 group">
           <svg className="w-9 h-9" viewBox="0 0 32 32" fill="none">
             <rect x="6" y="4" width="20" height="14" rx="2" fill="#A78BFA"/>
@@ -195,7 +206,7 @@ export default function GuidePage({ params }: PageProps) {
             <circle cx="18" cy="23" r="1.2" fill="#EF4444"/>
             <circle cx="22" cy="25" r="1.2" fill="#3B82F6"/>
           </svg>
-          <span className="font-bold text-xl text-white group-hover:text-purple-400 transition-colors">Xavrito</span>
+          <span className="font-display font-bold text-xl text-white group-hover:text-purple-400 transition-colors">Xavrito</span>
         </Link>
         <div className="hidden md:flex items-center gap-1">
           <Link href="/wiki" className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors">Wiki</Link>
@@ -204,93 +215,243 @@ export default function GuidePage({ params }: PageProps) {
         </div>
       </nav>
 
-      {/* Breadcrumb */}
-      <div className="pt-20 border-b border-white/10 px-4 sm:px-6 py-3">
-        <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-2 text-sm text-white/50">
-            <Link href="/" className="hover:text-purple-400 transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/guides" className="hover:text-purple-400 transition-colors">Guides</Link>
-            <span>/</span>
-            <span className="text-white font-medium truncate">{guide.title}</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero */}
-      <section className="py-12 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-4xl">{guide.emoji}</span>
-            <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">{guide.category}</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">{guide.title}</h1>
-          <p className="text-lg text-white/60 mb-4 max-w-2xl">{guide.excerpt}</p>
-          <div className="flex items-center gap-4 text-sm text-white/50">
-            <span>Updated: {new Date(guide.updatedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-            <span>•</span>
-            <span>{guide.readingTime}</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-12 px-4 sm:px-6 border-t border-white/10">
-        <div className="max-w-4xl mx-auto">
-          {/* Overview */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-8">
-            <h2 className="text-xl font-bold text-white mb-4">Overview</h2>
-            <p className="text-white/60 leading-relaxed">{guide.content.overview}</p>
+      {/* Hero - Once Human Special Design */}
+      {isOnceHuman ? (
+        <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src={onceHumanImages.hero}
+              alt="Once Human"
+              className="w-full h-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0" style={{
+              background: 'linear-gradient(180deg, rgba(10,9,16,0.3) 0%, rgba(10,9,16,0.7) 50%, rgba(10,9,16,0.95) 100%)'
+            }} />
+            <div className="absolute inset-0" style={{
+              background: 'radial-gradient(ellipse at center top, rgba(249,115,22,0.15) 0%, transparent 60%)'
+            }} />
           </div>
 
-          {/* Sections */}
-          {guide.content.sections.map((section, index) => (
-            <div key={index} className="mb-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-bold">{index + 1}</span>
-                </div>
-                <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+          {/* Content */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32">
+            <div className="max-w-3xl">
+              {/* Category Badge */}
+              <div className="flex items-center gap-3 mb-6">
+                <span className="px-4 py-1.5 bg-red-500/20 border border-red-500/30 text-red-400 rounded-full text-sm font-medium backdrop-blur-sm">
+                  🔴 SURVIVAL GUIDE
+                </span>
+                <span className="px-3 py-1.5 bg-white/10 text-white/80 rounded-full text-xs font-medium">
+                  Updated: {new Date(guide.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </span>
               </div>
-              <p className="text-white/60 leading-relaxed mb-4 pl-11">{section.content}</p>
-              {section.tips && (
-                <div className="pl-11">
-                  <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-                    <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
-                      <span className="text-purple-400">💡</span> Key Tips
-                    </h3>
-                    <ul className="space-y-2">
-                      {section.tips.map((tip, tipIndex) => (
-                        <li key={tipIndex} className="flex items-start gap-2 text-sm text-white/60">
-                          <svg className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                          {tip}
-                        </li>
-                      ))}
-                    </ul>
+
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
+                <span className="block text-5xl sm:text-6xl lg:text-7xl" style={{ color: '#f97316' }}>
+                  ONCE HUMAN
+                </span>
+                <span className="block mt-2 text-3xl sm:text-4xl lg:text-5xl">
+                  Best Builds Guide
+                </span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-lg sm:text-xl text-white/70 mb-8 leading-relaxed max-w-2xl">
+                Master the post-apocalyptic wasteland. Hunt bosses. Build bases. Craft legendary weapons. Dominate with the most powerful builds.
+              </p>
+
+              {/* Stats */}
+              <div className="flex flex-wrap gap-6">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">⏱️</span>
+                  <span className="text-white/60 text-sm">{guide.readingTime}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🎯</span>
+                  <span className="text-white/60 text-sm">PvP & PvE</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">⚔️</span>
+                  <span className="text-white/60 text-sm">4 Builds Covered</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute bottom-0 left-0 right-0 h-32" style={{ background: 'linear-gradient(to top, #0a0910 0%, transparent 100%)' }} />
+        </section>
+      ) : (
+        /* Standard Hero */
+        <section className="pt-32 pb-12 px-4 sm:px-6 border-b border-white/10">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-4xl">{guide.emoji}</span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">{guide.category}</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">{guide.title}</h1>
+            <p className="text-lg text-white/60 mb-4 max-w-2xl">{guide.excerpt}</p>
+            <div className="flex items-center gap-4 text-sm text-white/50">
+              <span>Updated: {new Date(guide.updatedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+              <span>•</span>
+              <span>{guide.readingTime}</span>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Content - Enhanced for Once Human */}
+      <section className="py-16 px-4 sm:px-6">
+        <div className={`${isOnceHuman ? 'max-w-7xl mx-auto' : 'max-w-4xl mx-auto'}`}>
+          {/* Overview Card - Enhanced */}
+          <div className={`${isOnceHuman ? 'grid md:grid-cols-2 gap-8 mb-12' : 'bg-white/5 border border-white/10 rounded-xl p-6 mb-8'}`}>
+            {isOnceHuman ? (
+              <>
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl">🌌</span>
+                    <h2 className="text-2xl font-bold text-white">About the Game</h2>
+                  </div>
+                  <p className="text-white/60 leading-relaxed text-lg">{guide.content.overview}</p>
+                </div>
+                <div className="relative rounded-2xl overflow-hidden">
+                  <img
+                    src={onceHumanImages.survival}
+                    alt="Survival"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-white text-sm font-medium">Survive. Build. Dominate.</p>
                   </div>
                 </div>
-              )}
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold text-white mb-4">Overview</h2>
+                <p className="text-white/60 leading-relaxed">{guide.content.overview}</p>
+              </>
+            )}
+          </div>
+
+          {/* Section Images for Once Human */}
+          {isOnceHuman && (
+            <div className="grid grid-cols-3 gap-4 mb-12">
+              <div className="relative rounded-xl overflow-hidden aspect-video">
+                <img src={onceHumanImages.weapons} alt="Weapons" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-2 left-2 text-white text-xs font-medium">WEAPONS</span>
+              </div>
+              <div className="relative rounded-xl overflow-hidden aspect-video">
+                <img src={onceHumanImages.monsters} alt="Monsters" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-2 left-2 text-white text-xs font-medium">MUTANTS</span>
+              </div>
+              <div className="relative rounded-xl overflow-hidden aspect-video">
+                <img src={onceHumanImages.survival} alt="Survival" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-2 left-2 text-white text-xs font-medium">BUILDING</span>
+              </div>
+            </div>
+          )}
+
+          {/* Guide Sections */}
+          {guide.content.sections.map((section, index) => (
+            <div key={index} className={`${isOnceHuman ? 'mb-16' : 'mb-8'}`}>
+              {/* Section Header */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`${isOnceHuman ? 'w-12 h-12' : 'w-8 h-8'} bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${isOnceHuman ? 'shadow-orange-500/20' : ''}`}>
+                  <span className={`${isOnceHuman ? 'text-lg' : 'text-sm'} font-bold text-white`}>{index + 1}</span>
+                </div>
+                <h2 className={`${isOnceHuman ? 'text-2xl sm:text-3xl' : 'text-2xl'} font-bold text-white`}>{section.title}</h2>
+              </div>
+
+              {/* Section Content */}
+              <div className={`${isOnceHuman ? 'grid md:grid-cols-5 gap-6' : ''}`}>
+                <p className={`${isOnceHuman ? 'md:col-span-3 text-white/70 leading-relaxed text-lg' : 'text-white/60 leading-relaxed mb-4 pl-0'}`}>{section.content}</p>
+
+                {/* Tips Card */}
+                {section.tips && (
+                  <div className={`${isOnceHuman ? 'md:col-span-2' : 'pl-0'}`}>
+                    <div className={`${isOnceHuman ? 'bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-6' : 'bg-white/5 border border-white/10 rounded-xl p-5'}`}>
+                      <h3 className={`${isOnceHuman ? 'font-bold text-white mb-4 flex items-center gap-2 text-lg' : 'font-semibold text-white mb-3 flex items-center gap-2'}`}>
+                        <span className="text-xl">💡</span> Key Tips
+                      </h3>
+                      <ul className="space-y-3">
+                        {section.tips.map((tip, tipIndex) => (
+                          <li key={tipIndex} className="flex items-start gap-3">
+                            <div className={`${isOnceHuman ? 'w-2 h-2 mt-2 bg-orange-500 rounded-full' : 'w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5'}`}>
+                              {isOnceHuman ? null : (
+                                <svg className="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                              )}
+                            </div>
+                            <span className={`${isOnceHuman ? 'text-white/80' : 'text-sm text-white/60'}`}>{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-12 px-4 sm:px-6 border-t border-white/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Ready to Apply These Tips?</h2>
-          <p className="text-white/50 mb-6">Put these strategies to the test by playing free HTML5 games.</p>
-          <Link href="/#games" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-purple-500/30">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-            Play Free Games
-          </Link>
+      <section className="py-20 px-4 sm:px-6 border-t border-white/10 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #13121c 0%, #0a0910 100%)' }}>
+        {/* Background Effect */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(249,115,22,0.2) 0%, transparent 70%)' }} />
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          {isOnceHuman ? (
+            <>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                Ready to <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #f97316 0%, #ef4444 100%)' }}>Dominate</span> the Wasteland?
+              </h2>
+              <p className="text-white/60 mb-8 text-lg">Join thousands of survivors fighting for control in the post-apocalyptic world.</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/#games" className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-bold rounded-xl transition-all shadow-lg"
+                  style={{ background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)', boxShadow: '0 0 30px rgba(249,115,22,0.3)' }}>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  Play Free HTML5 Games
+                </Link>
+                <Link href="/guides" className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-medium rounded-xl border border-white/20 text-white/80 hover:text-white hover:bg-white/10 transition-all">
+                  Browse More Guides
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="text-2xl font-bold text-white mb-4">Ready to Apply These Tips?</h2>
+              <p className="text-white/50 mb-6">Put these strategies to the test by playing free HTML5 games.</p>
+              <Link href="/#games" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-purple-500/30">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                Play Free Games
+              </Link>
+            </>
+          )}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-4 sm:px-6 py-8">
+      <footer className="border-t border-white/10 px-4 sm:px-6 py-8" style={{ background: '#0a0910' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2"><span className="font-semibold text-white">Xavrito</span></div>
+          <div className="flex items-center gap-2">
+            <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none">
+              <rect x="6" y="4" width="20" height="14" rx="2" fill="#A78BFA"/>
+              <polygon points="13,8 13,14 19,11" fill="#1C1917"/>
+              <rect x="6" y="20" width="20" height="8" rx="1" fill="#374151"/>
+              <circle cx="11" cy="24" r="2" fill="#6B7280"/>
+              <rect x="10.3" y="20" width="1.4" height="5" rx="0.5" fill="#9CA3AF"/>
+              <circle cx="18" cy="23" r="1.2" fill="#EF4444"/>
+              <circle cx="22" cy="25" r="1.2" fill="#3B82F6"/>
+            </svg>
+            <span className="font-display font-semibold text-white">Xavrito</span>
+          </div>
           <p className="text-sm text-white/50">Free HTML5 games. No downloads. No signups.</p>
         </div>
       </footer>
