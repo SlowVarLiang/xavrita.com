@@ -184,9 +184,9 @@ export default function GuidePage({ params }: PageProps) {
   // Check if this is the Once Human guide for special styling
   const isOnceHuman = params.slug === 'once-human-best-builds'
 
-  // Once Human specific images - local game screenshots
+  // Once Human specific images - real game screenshots from Steam
   const onceHumanImages = {
-    hero: '/images/once-human/hero.jpg',
+    hero: '/images/once-human/hero_wide.jpg',
     weapons: '/images/once-human/weapons.jpg',
     monsters: '/images/once-human/monsters.jpg',
     survival: '/images/once-human/survival.jpg',
