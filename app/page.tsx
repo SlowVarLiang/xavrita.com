@@ -276,7 +276,7 @@ function StatsBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-center gap-8 md:gap-16 flex-wrap">
           <div className="text-center">
-            <span className="font-mono text-2xl md:text-3xl font-bold text-purple-400">56+</span>
+            <span className="font-mono text-2xl md:text-3xl font-bold text-purple-400">80+</span>
             <p className="text-xs text-white/50 mt-1">Free Games</p>
           </div>
           <div className="w-px h-8 bg-white/10 hidden md:block" />
@@ -399,7 +399,7 @@ function ExploreSection() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-white group-hover:text-purple-400 transition-colors">Game Wikis</h3>
-                <p className="text-sm text-white/50">56+ databases</p>
+                <p className="text-sm text-white/50">80+ databases</p>
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
