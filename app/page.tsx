@@ -289,11 +289,6 @@ function StatsBar() {
             <span className="font-mono text-2xl md:text-3xl font-bold text-white">100%</span>
             <p className="text-xs text-white/50 mt-1">Free Forever</p>
           </div>
-          <div className="w-px h-8 bg-white/10 hidden md:block" />
-          <div className="text-center">
-            <span className="font-mono text-2xl md:text-3xl font-bold text-green-400">0</span>
-            <p className="text-xs text-white/50 mt-1">Signups Required</p>
-          </div>
         </div>
       </div>
     </section>
