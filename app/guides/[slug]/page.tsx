@@ -184,12 +184,13 @@ export default function GuidePage({ params }: PageProps) {
   // Check if this is the Once Human guide for special styling
   const isOnceHuman = params.slug === 'once-human-best-builds'
 
-  // Once Human specific images (placeholder - replace with actual game screenshots)
+  // Once Human specific images - local game screenshots
   const onceHumanImages = {
-    hero: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1920&q=80',
-    weapons: 'https://images.unsplash.com/photo-1511882150382-421056c89033?w=800&q=80',
-    monsters: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
-    survival: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80',
+    hero: '/images/once-human/hero.jpg',
+    weapons: '/images/once-human/weapons.jpg',
+    monsters: '/images/once-human/monsters.jpg',
+    survival: '/images/once-human/survival.jpg',
+    building: '/images/once-human/building.jpg',
   }
 
   return (
@@ -349,7 +350,7 @@ export default function GuidePage({ params }: PageProps) {
                 <span className="absolute bottom-2 left-2 text-white text-xs font-medium">MUTANTS</span>
               </div>
               <div className="relative rounded-xl overflow-hidden aspect-video">
-                <img src={onceHumanImages.survival} alt="Survival" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
+                <img src={onceHumanImages.building} alt="Building" className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-2 left-2 text-white text-xs font-medium">BUILDING</span>
               </div>
