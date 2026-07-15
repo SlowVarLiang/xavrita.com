@@ -219,11 +219,11 @@ function HeroSection() {
           </span>
         </div>
         <h1 className="hero-anim hero-reveal text-white leading-[0.95] font-semibold tracking-tight" style={{ letterSpacing: '-0.04em' }}>
-          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient hero-glow">
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient">
             Play Free
           </span>
           <span
-            className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient hero-glow font-italic"
+            className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient font-italic"
             style={{ fontStyle: 'italic', fontFamily: "'Playfair Display', serif", animationDelay: '0.2s' }}
           >
             HTML5 Games
