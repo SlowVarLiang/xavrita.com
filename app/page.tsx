@@ -223,8 +223,8 @@ function HeroSection() {
             Play Free
           </span>
           <span
-            className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl hero-gradient font-italic"
-            style={{ fontStyle: 'italic', fontFamily: "'Playfair Display', serif", animationDelay: '0.2s' }}
+            className="block -mt-1 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-italic"
+            style={{ fontStyle: 'italic', fontFamily: "'Playfair Display', serif", animationDelay: '0.2s', color: '#f97316' }}
           >
             HTML5 Games
           </span>
