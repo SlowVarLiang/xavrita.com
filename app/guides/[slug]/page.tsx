@@ -16,6 +16,25 @@ const GUIDE_DATA: Record<string, {
   title: string; category: string; excerpt: string; emoji: string; updatedAt: string; readingTime: string;
   content: { overview: string; sections: { title: string; content: string; tips?: string[] }[] }
 }> = {
+  'once-human-best-builds': {
+    title: 'Once Human: Best Builds Guide', category: 'Survival', excerpt: 'Dominate the post-apocalyptic world with the best builds in Once Human.',
+    emoji: '🔧', updatedAt: '2026-07-15', readingTime: '10 min read',
+    content: {
+      overview: 'Once Human is a multiplayer survival game where you battle monsters, build bases, and compete for resources in a harsh open world.',
+      sections: [
+        { title: 'Understanding the Build System', content: 'Once Human uses a mod system called "Memetic Specialization" that determines your playstyle.',
+          tips: ['Choose your specialization early', 'Balance offense and defense', 'Consider your group role'] },
+        { title: 'Best Sniper Build', content: 'The Sniper build focuses on high burst damage from distance.',
+          tips: ['Maximize rifle damage stats', 'Use terrain for elevation', 'Pair with a spotter for bonuses'] },
+        { title: 'Best Melee/Brute Build', content: 'The Brute build is for players who get up close and personal.',
+          tips: ['Stack close-range damage', 'Use heavy weapons like hammers', 'Build for high survivability'] },
+        { title: 'Best Support/Builder Build', content: 'The Builder support build helps your team survive and thrive.',
+          tips: ['Focus on resource gathering', 'Build defensive structures', 'Healing and buffs are key'] },
+        { title: 'Stat Distribution Tips', content: '分配你的属性点 wisely to maximize your build effectiveness.',
+          tips: ['Prioritize primary stat for your role', 'Don\'t neglect stamina', 'Save points for late game'] }
+      ]
+    }
+  },
   'puzzle-mastery-guide': {
     title: 'Puzzle Games: From Beginner to Master', category: 'Strategy', excerpt: 'Master puzzle games with proven strategies.',
     emoji: '🧩', updatedAt: '2026-07-14', readingTime: '8 min read',
