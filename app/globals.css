@@ -38,15 +38,15 @@ body {
 /* Spotlight reveal for hero image - pure CSS mask approach */
 .spotlight-reveal {
   mask-image: radial-gradient(
-    circle 190px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%),
     black 0%,
-    black 40%,
+    black 35%,
     transparent 100%
   );
   -webkit-mask-image: radial-gradient(
-    circle 190px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%),
     black 0%,
-    black 40%,
+    black 35%,
     transparent 100%
   );
   mask-size: 100% 100%;
