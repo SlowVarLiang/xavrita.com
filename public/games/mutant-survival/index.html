@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutant Survival - Once Human Mini Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(180deg, #1a0a0a 0%, #0d0d0d 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+    #gameContainer {
+      position: relative;
+      border: 2px solid #ff6b35;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+    }
+    #gameCanvas {
+      display: block;
+      background: #0a0a0a;
+    }
+    #ui {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .stat {
+      background: rgba(0,0,0,0.7);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .health { color: #ff4444; }
+    .score { color: #ffaa00; }
+    .wave { color: #ff6b35; }
+    #startScreen, #gameOver {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.9);
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #ff6b35;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(255,107,53,0.5);
+    }
+    p {
+      color: #aaa;
+      margin-bottom: 20px;
+      font-size: 14px;
+      max-width: 300px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff4444 100%);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,107,53,0.5);
+    }
+    .hidden { display: none !important; }
+    #instructions {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      padding: 6px 14px;
+      border-radius: 15px;
+      font-size: 11px;
+      color: #888;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="480" height="320"></canvas>
+    <div id="ui" class="hidden">
+      <span class="stat health">❤️ <span id="healthVal">100</span></span>
+      <span class="stat wave">🌊 Wave <span id="waveVal">1</span></span>
+      <span class="stat score">⭐ <span id="scoreVal">0</span></span>
+    </div>
+    <div id="instructions">Mouse to aim & shoot | Click to fire</div>
+
+    <div id="startScreen">
+      <h1>🔴 MUTANT SURVIVAL</h1>
+      <p>Fight off waves of mutants in this Once Human themed survival game. How long can you survive?</p>
+      <button class="btn" onclick="startGame()">START GAME</button>
+    </div>
+
+    <div id="gameOver" class="hidden">
+      <h1>💀 GAME OVER</h1>
+      <p>You survived <span id="finalWave">0</span> waves and scored <span id="finalScore">0</span> points!</p>
+      <button class="btn" onclick="startGame()">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let game = { running: false, wave: 1, score: 0, health: 100, lastShot: 0 };
+    let player = { x: 240, y: 240, radius: 15, angle: 0 };
+    let bullets = [], mutants = [], particles = [];
+    let mouseX = 240, mouseY = 160;
+
+    function startGame() {
+      game = { running: true, wave: 1, score: 0, health: 100, lastShot: 0 };
+      player = { x: 240, y: 240, radius: 15, angle: 0 };
+      bullets = []; mutants = []; particles = [];
+      spawnWave();
+      updateUI();
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+      document.getElementById('ui').classList.remove('hidden');
+      requestAnimationFrame(gameLoop);
+    }
+
+    function spawnWave() {
+      let count = 3 + game.wave * 2;
+      for (let i = 0; i < count; i++) {
+        let side = Math.floor(Math.random() * 4);
+        let x, y;
+        if (side === 0) { x = Math.random() * 480; y = -20; }
+        else if (side === 1) { x = 500; y = Math.random() * 320; }
+        else if (side === 2) { x = Math.random() * 480; y = 340; }
+        else { x = -20; y = Math.random() * 320; }
+        mutants.push({
+          x, y, radius: 12 + Math.random() * 8,
+          speed: 0.8 + game.wave * 0.15,
+          health: 2 + Math.floor(game.wave / 3),
+          color: `hsl(${Math.random() * 30 + 350}, 70%, 50%)`,
+          wobble: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    canvas.addEventListener('mousemove', (e) => {
+      let rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+
+    canvas.addEventListener('click', () => {
+      if (!game.running) return;
+      let now = Date.now();
+      if (now - game.lastShot < 150) return;
+      game.lastShot = now;
+      let angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+      bullets.push({
+        x: player.x, y: player.y,
+        vx: Math.cos(angle) * 8,
+        vy: Math.sin(angle) * 8,
+        life: 60
+      });
+    });
+
+    function createParticles(x, y, color, count) {
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x, y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+          life: 20 + Math.random() * 20,
+          color,
+          size: 2 + Math.random() * 3
+        });
+      }
+    }
+
+    function update() {
+      if (!game.running) return;
+
+      player.angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+
+      bullets.forEach(b => {
+        b.x += b.vx; b.y += b.vy; b.life--;
+      });
+      bullets = bullets.filter(b => b.life > 0 && b.x > -10 && b.x < 490 && b.y > -10 && b.y < 330);
+
+      mutants.forEach(m => {
+        let angle = Math.atan2(player.y - m.y, player.x - m.x);
+        m.wobble += 0.1;
+        m.x += Math.cos(angle + Math.sin(m.wobble) * 0.3) * m.speed;
+        m.y += Math.sin(angle + Math.sin(m.wobble) * 0.3) * m.speed;
+
+        let dist = Math.hypot(player.x - m.x, player.y - m.y);
+        if (dist < player.radius + m.radius) {
+          game.health -= 10;
+          createParticles(m.x, m.y, '#ff4444', 5);
+          m.health = 0;
+        }
+      });
+
+      bullets.forEach(b => {
+        mutants.forEach(m => {
+          if (m.health <= 0) return;
+          let dist = Math.hypot(b.x - m.x, b.y - m.y);
+          if (dist < m.radius) {
+            m.health--;
+            if (m.health <= 0) {
+              game.score += 10 * game.wave;
+              createParticles(m.x, m.y, m.color, 8);
+            }
+          }
+        });
+      });
+
+      mutants = mutants.filter(m => m.health > 0);
+      particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.life--; });
+      particles = particles.filter(p => p.life > 0);
+
+      if (mutants.length === 0) {
+        game.wave++;
+        spawnWave();
+      }
+
+      if (game.health <= 0) {
+        game.running = false;
+        document.getElementById('finalWave').textContent = game.wave;
+        document.getElementById('finalScore').textContent = game.score;
+        document.getElementById('gameOver').classList.remove('hidden');
+        document.getElementById('ui').classList.add('hidden');
+      }
+
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('healthVal').textContent = Math.max(0, game.health);
+      document.getElementById('waveVal').textContent = game.wave;
+      document.getElementById('scoreVal').textContent = game.score;
+    }
+
+    function draw() {
+      ctx.fillStyle = '#0a0a0a';
+      ctx.fillRect(0, 0, 480, 320);
+
+      // Grid background
+      ctx.strokeStyle = 'rgba(255,107,53,0.1)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < 480; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 320); ctx.stroke();
+      }
+      for (let y = 0; y < 320; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(480, y); ctx.stroke();
+      }
+
+      // Particles
+      particles.forEach(p => {
+        ctx.globalAlpha = p.life / 40;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+
+      // Mutants
+      mutants.forEach(m => {
+        ctx.fillStyle = m.color;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Mutant eyes
+        ctx.fillStyle = '#000';
+        let eyeAngle = Math.atan2(player.y - m.y, player.x - m.x);
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle - 0.4) * 5, m.y + Math.sin(eyeAngle - 0.4) * 5, 3, 0, Math.PI * 2);
+        ctx.arc(m.x + Math.cos(eyeAngle + 0.4) * 5, m.y + Math.sin(eyeAngle + 0.4) * 5, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Health bar
+        if (m.health > 1) {
+          ctx.fillStyle = '#333';
+          ctx.fillRect(m.x - 10, m.y - m.radius - 8, 20, 4);
+          ctx.fillStyle = '#ff4444';
+          ctx.fillRect(m.x - 10, m.y - m.radius - 8, 20 * (m.health / (2 + Math.floor(game.wave / 3))), 4);
+        }
+      });
+
+      // Bullets
+      ctx.fillStyle = '#ffaa00';
+      bullets.forEach(b => {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,170,0,0.3)';
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 7, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#ffaa00';
+      });
+
+      // Player
+      ctx.save();
+      ctx.translate(player.x, player.y);
+      ctx.rotate(player.angle);
+
+      // Body
+      ctx.fillStyle = '#ff6b35';
+      ctx.beginPath();
+      ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Gun
+      ctx.fillStyle = '#444';
+      ctx.fillRect(5, -4, 15, 8);
+      ctx.fillStyle = '#666';
+      ctx.fillRect(15, -3, 8, 6);
+
+      ctx.restore();
+
+      // Health bar at bottom
+      ctx.fillStyle = 'rgba(0,0,0,0.5)';
+      ctx.fillRect(10, 295, 100, 16);
+      ctx.fillStyle = game.health > 30 ? '#ff4444' : '#ff0000';
+      ctx.fillRect(10, 295, game.health, 16);
+      ctx.strokeStyle = '#ff6b35';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(10, 295, 100, 16);
+    }
+
+    function gameLoop() {
+      update();
+      draw();
+      if (game.running) requestAnimationFrame(gameLoop);
+    }
+
+    draw();
+  </script>
+</body>
+</html>

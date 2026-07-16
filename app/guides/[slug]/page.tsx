@@ -404,6 +404,23 @@ export default function GuidePage({ params }: PageProps) {
                 Ready to <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #f97316 0%, #ef4444 100%)' }}>Dominate</span> the Wasteland?
               </h2>
               <p className="text-white/60 mb-8 text-lg">Join thousands of survivors fighting for control in the post-apocalyptic world.</p>
+
+              {/* Playable Mini Game */}
+              <div className="mb-12">
+                <h3 className="text-xl font-bold text-white mb-4">🎮 Play: Mutant Survival</h3>
+                <div className="inline-block rounded-xl overflow-hidden shadow-xl" style={{ boxShadow: '0 0 40px rgba(255,107,53,0.4)' }}>
+                  <iframe
+                    src="/games/mutant-survival/index.html"
+                    width="480"
+                    height="360"
+                    frameBorder="0"
+                    allow="fullscreen"
+                    style={{ display: 'block' }}
+                  />
+                </div>
+                <p className="text-white/50 text-sm mt-4">Click to shoot mutants. Survive as long as you can!</p>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/#games" className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-bold rounded-xl transition-all shadow-lg"
                   style={{ background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)', boxShadow: '0 0 30px rgba(249,115,22,0.3)' }}>
