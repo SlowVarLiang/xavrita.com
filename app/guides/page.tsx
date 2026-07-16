@@ -22,36 +22,39 @@ const gameGuides = [
     miniGameSlug: 'mutant-survival',
     image: '/images/once-human/hero_wide.png',
     updatedAt: '2026-07-15',
+    externalUrl: null,
   },
   {
-    slug: 'placeholder-game-2',
-    title: 'Your Game Here',
-    subtitle: 'Guide Coming Soon',
-    category: 'RPG',
-    genre: 'Action / Adventure',
-    excerpt: 'A comprehensive guide for this popular game. Learn optimal builds, strategies, and tips from experienced players.',
-    emoji: '🎮',
-    gradient: 'from-purple-600 to-pink-700',
-    accentColor: '#a855f7',
-    hasMiniGame: false,
-    miniGameSlug: '',
-    image: '',
-    updatedAt: '2026-07-15',
-  },
-  {
-    slug: 'placeholder-game-3',
-    title: 'Your Game Here',
-    subtitle: 'Guide Coming Soon',
-    category: 'Strategy',
-    genre: 'Real-Time Strategy',
-    excerpt: 'Dominate the battlefield with advanced tactics and unit compositions. Professional strategies for competitive play.',
+    slug: 'solateria',
+    title: 'Solateria',
+    subtitle: 'Guides & Strategy',
+    category: 'Action RPG',
+    genre: 'Action / Soulslike',
+    excerpt: 'Comprehensive guides for Solateria — boss strategies, build recommendations, collectibles, and Pyron combat system breakdown.',
     emoji: '⚔️',
-    gradient: 'from-blue-600 to-cyan-700',
-    accentColor: '#3b82f6',
+    gradient: 'from-amber-600 to-orange-700',
+    accentColor: '#f97316',
+    hasMiniGame: true,
+    miniGameSlug: 'perfect-parry',
+    image: '',
+    updatedAt: '2026-07-15',
+    externalUrl: 'https://solateria.com',
+  },
+  {
+    slug: 'rift-wizard-3',
+    title: 'Rift Wizard 3',
+    subtitle: 'Beginner & Crafting Guides',
+    category: 'Roguelike',
+    genre: 'Strategy / Dungeon Crawler',
+    excerpt: 'Deep strategy guides for Rift Wizard 3 — class builds, crafting mechanics, forge system, and boss fight tactics.',
+    emoji: '🧙',
+    gradient: 'from-purple-600 to-indigo-700',
+    accentColor: '#8b5cf6',
     hasMiniGame: false,
     miniGameSlug: '',
     image: '',
     updatedAt: '2026-07-15',
+    externalUrl: 'https://riftwizard3.com',
   },
 ]
 
@@ -106,12 +109,20 @@ export default function GuidesPage() {
       <section className="py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {gameGuides.map((guide) => (
-              <Link
-                key={guide.slug}
-                href={`/guides/${guide.slug}/`}
-                className="group block bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 hover:shadow-2xl"
-              >
+            {gameGuides.map((guide) => {
+              const href = guide.externalUrl || `/guides/${guide.slug}/`
+              const isExternal = !!guide.externalUrl
+              const Wrapper = isExternal ? 'a' : Link
+              const wrapperProps = isExternal
+                ? { href, target: '_blank', rel: 'noopener noreferrer' }
+                : { href }
+
+              return (
+                <Wrapper
+                  key={guide.slug}
+                  {...wrapperProps}
+                  className="group block bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 hover:shadow-2xl"
+                >
                 {/* Card Image */}
                 <div className="relative h-48 overflow-hidden">
                   {guide.image ? (
@@ -165,14 +176,21 @@ export default function GuidesPage() {
                     </div>
                     <span className="text-sm text-purple-400 font-medium group-hover:underline flex items-center gap-1">
                       View Guide
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
+                      {isExternal ? (
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      )}
                     </span>
                   </div>
                 </div>
-              </Link>
-            ))}
+              </Wrapper>
+              )
+            })}
           </div>
         </div>
       </section>
