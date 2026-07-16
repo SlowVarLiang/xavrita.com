@@ -128,7 +128,7 @@
       <span class="stat wave">&#x1F30A; WAVE <span id="waveVal">1</span></span>
       <span class="stat score">&#x2B50; <span id="scoreVal">0</span></span>
     </div>
-    <div id="instructions">MOUSE to aim &nbsp;&#x2022;&nbsp; CLICK to fire</div>
+    <div id="instructions">WASD / ARROWS to move &nbsp;&#x2022;&nbsp; MOUSE to aim &nbsp;&#x2022;&nbsp; CLICK to fire</div>
 
     <div id="startScreen">
       <h1>&#x1F534; MUTANT SURVIVAL</h1>
@@ -151,10 +151,10 @@
     const W = 480, H = 320;
 
     let game = { running: false, wave: 1, score: 0, health: 100, lastShot: 0, shake: 0 };
-    let player = { x: 240, y: 240, radius: 14, angle: 0, muzzleFlash: 0 };
+    let player = { x: 240, y: 240, radius: 14, angle: 0, muzzleFlash: 0, speed: 3 };
     let bullets = [], mutants = [], particles = [], embers = [], splatters = [];
     let mouseX = 240, mouseY = 160;
-    let lastTime = 0;
+    let keys = { w: false, a: false, s: false, d: false, up: false, down: false, left: false, right: false };
 
     function startGame() {
       game = { running: true, wave: 1, score: 0, health: 100, lastShot: 0, shake: 0 };
@@ -209,6 +209,22 @@
       mouseY = e.clientY - rect.top;
     });
 
+    document.addEventListener('keydown', (e) => {
+      let k = e.key.toLowerCase();
+      if (k === 'w' || k === 'arrowup') keys.w = true;
+      if (k === 'a' || k === 'arrowleft') keys.a = true;
+      if (k === 's' || k === 'arrowdown') keys.s = true;
+      if (k === 'd' || k === 'arrowright') keys.d = true;
+    });
+
+    document.addEventListener('keyup', (e) => {
+      let k = e.key.toLowerCase();
+      if (k === 'w' || k === 'arrowup') keys.w = false;
+      if (k === 'a' || k === 'arrowleft') keys.a = false;
+      if (k === 's' || k === 'arrowdown') keys.s = false;
+      if (k === 'd' || k === 'arrowright') keys.d = false;
+    });
+
     canvas.addEventListener('click', () => {
       if (!game.running) return;
       let now = Date.now();
@@ -260,6 +276,19 @@
       if (!game.running) return;
 
       if (game.shake > 0) game.shake *= 0.8;
+
+      // Player movement
+      let dx = 0, dy = 0;
+      if (keys.w) dy -= 1;
+      if (keys.s) dy += 1;
+      if (keys.a) dx -= 1;
+      if (keys.d) dx += 1;
+      if (dx !== 0 || dy !== 0) {
+        let len = Math.hypot(dx, dy);
+        dx /= len; dy /= len;
+        player.x = Math.max(player.radius, Math.min(W - player.radius, player.x + dx * player.speed));
+        player.y = Math.max(player.radius, Math.min(H - player.radius, player.y + dy * player.speed));
+      }
 
       player.angle = Math.atan2(mouseY - player.y, mouseX - player.x);
       if (player.muzzleFlash > 0) player.muzzleFlash--;
