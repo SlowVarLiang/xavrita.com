@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0910"/>
+      <stop offset="50%" style="stop-color:#13121c"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+    <linearGradient id="glow2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#a855f7"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="30%" cy="30%" r="50%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="70%" cy="60%" r="50%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="textglow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="472" x2="1200" y2="472"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Orb lights -->
+  <ellipse cx="200" cy="200" rx="400" ry="300" fill="url(#orb1)"/>
+  <ellipse cx="900" cy="400" rx="500" ry="350" fill="url(#orb2)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="150" cy="500" r="80" fill="none" stroke="#f97316" stroke-opacity="0.15" stroke-width="1"/>
+  <circle cx="150" cy="500" r="120" fill="none" stroke="#f97316" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="1050" cy="150" r="100" fill="none" stroke="#a855f7" stroke-opacity="0.15" stroke-width="1"/>
+  <circle cx="1050" cy="150" r="150" fill="none" stroke="#a855f7" stroke-opacity="0.08" stroke-width="1"/>
+
+  <!-- Logo area -->
+  <g transform="translate(80, 60)">
+    <rect x="0" y="0" width="44" height="30" rx="4" fill="#A78BFA"/>
+    <polygon points="18,6 18,18 28,12" fill="#1C1917"/>
+    <rect x="0" y="32" width="44" height="18" rx="2" fill="#374151"/>
+    <circle cx="12" cy="41" r="4" fill="#6B7280"/>
+    <rect x="11" y="32" width="3" height="12" rx="1" fill="#9CA3AF"/>
+    <circle cx="22" cy="40" r="3" fill="#EF4444"/>
+    <circle cx="29" cy="43" r="3" fill="#3B82F6"/>
+  </g>
+  <text x="140" y="85" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Xavrito</text>
+
+  <!-- Main title -->
+  <g filter="url(#textglow)">
+    <text x="600" y="240" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="-1">Play Free</text>
+    <text x="600" y="330" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="url(#glow1)" text-anchor="middle" letter-spacing="-1" filter="url(#glow)">HTML5 Games</text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="600" y="400" font-family="system-ui, sans-serif" font-size="22" fill="#ffffff" fill-opacity="0.6" text-anchor="middle" letter-spacing="0.5">Instant play. No downloads. No signups.</text>
+
+  <!-- Game icons row -->
+  <g transform="translate(300, 460)">
+    <!-- Game card 1 -->
+    <rect x="0" y="0" width="100" height="75" rx="8" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.1"/>
+    <rect x="10" y="10" width="80" height="45" rx="4" fill="#f97316" fill-opacity="0.3"/>
+    <text x="50" y="40" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle">🎮</text>
+    <text x="50" y="66" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" fill-opacity="0.7" text-anchor="middle">Puzzle</text>
+
+    <!-- Game card 2 -->
+    <rect x="120" y="0" width="100" height="75" rx="8" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.1"/>
+    <rect x="130" y="10" width="80" height="45" rx="4" fill="#a855f7" fill-opacity="0.3"/>
+    <text x="170" y="40" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle">⚔️</text>
+    <text x="170" y="66" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" fill-opacity="0.7" text-anchor="middle">Action</text>
+
+    <!-- Game card 3 -->
+    <rect x="240" y="0" width="100" height="75" rx="8" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.1"/>
+    <rect x="250" y="10" width="80" height="45" rx="4" fill="#3b82f6" fill-opacity="0.3"/>
+    <text x="290" y="40" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle">🏎️</text>
+    <text x="290" y="66" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" fill-opacity="0.7" text-anchor="middle">Racing</text>
+
+    <!-- Game card 4 -->
+    <rect x="360" y="0" width="100" height="75" rx="8" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.1"/>
+    <rect x="370" y="10" width="80" height="45" rx="4" fill="#22c55e" fill-opacity="0.3"/>
+    <text x="410" y="40" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle">🧠</text>
+    <text x="410" y="66" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" fill-opacity="0.7" text-anchor="middle">Strategy</text>
+
+    <!-- Game card 5 -->
+    <rect x="480" y="0" width="100" height="75" rx="8" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.1"/>
+    <rect x="490" y="10" width="80" height="45" rx="4" fill="#eab308" fill-opacity="0.3"/>
+    <text x="530" y="40" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle">🕹️</text>
+    <text x="530" y="66" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" fill-opacity="0.7" text-anchor="middle">Arcade</text>
+
+    <!-- More indicator -->
+    <rect x="600" y="0" width="100" height="75" rx="8" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="650" y="42" font-family="system-ui, sans-serif" font-size="28" text-anchor="middle">+75</text>
+    <text x="650" y="66" font-family="system-ui, sans-serif" font-size="10" fill="#ffffff" fill-opacity="0.7" text-anchor="middle">more</text>
+  </g>
+
+  <!-- Bottom stats bar -->
+  <g transform="translate(0, 580)">
+    <rect x="0" y="0" width="1200" height="50" fill="#000000" fill-opacity="0.3"/>
+    <text x="200" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#f97316" text-anchor="middle">🔥 80+ Free Games</text>
+    <text x="450" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#a855f7" text-anchor="middle">📚 10 Categories</text>
+    <text x="700" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#3b82f6" text-anchor="middle">🎯 Instant Play</text>
+    <text x="950" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#22c55e" text-anchor="middle">💯 100% Free</text>
+  </g>
+</svg>

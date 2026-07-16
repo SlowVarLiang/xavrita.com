@@ -48,6 +48,14 @@ export const metadata: Metadata = {
     siteName: 'Xavrito',
     title: 'Xavrito - Free HTML5 Games',
     description: 'Play free HTML5 browser games instantly. No downloads. No signups. Just fun.',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Xavrito - Free HTML5 Games',
+      }
+    ],
   },
   twitter: {
     card: 'summary_large_image',
