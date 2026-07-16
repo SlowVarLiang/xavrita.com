@@ -1,94 +1,58 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { html5Games } from '@/lib/html5-games'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Game Guides - Xavrito',
-  description: 'Comprehensive game guides, walkthroughs, and strategies for HTML5 games. Tips, tricks, and how-to-play guides for all game categories.',
+  description: 'In-depth game guides, builds, and strategies for popular games. Each guide comes with a themed HTML5 mini game to test your skills.',
 }
 
-const guidesData = [
+const gameGuides = [
   {
-    slug: 'mutant-survival-guide',
-    title: 'Mutant Survival: Combat Strategies',
+    slug: 'once-human-best-builds',
+    title: 'Once Human',
+    subtitle: 'Best Builds Guide',
     category: 'Survival',
-    excerpt: 'Master the Mutant Survival mini game. Learn enemy patterns, movement techniques, and high score strategies for Once Human themed combat.',
-    updatedAt: '2026-07-16',
-    emoji: '🔴',
-    level: 'All Levels'
+    genre: 'Survival / Open World',
+    excerpt: 'Master Once Human with the best weapon builds, perk recommendations, and survival strategies. Includes themed mini game.',
+    emoji: '🎯',
+    gradient: 'from-orange-600 to-red-700',
+    accentColor: '#ff6b35',
+    hasMiniGame: true,
+    miniGameSlug: 'mutant-survival',
+    image: '/images/once-human/hero_wide.png',
+    updatedAt: '2026-07-15',
   },
   {
-    slug: 'puzzle-mastery-guide',
-    title: 'Puzzle Games: From Beginner to Master',
-    category: 'Strategy',
-    excerpt: 'Master puzzle games with these proven strategies. Learn pattern recognition, logical deduction, and advanced solving techniques.',
-    updatedAt: '2026-07-14',
-    emoji: '🧩',
-    level: 'All Levels'
-  },
-  {
-    slug: 'action-games-combat-guide',
-    title: 'Action Games Combat Guide',
-    category: 'Combat',
-    excerpt: 'Dominate action games with expert combat tips. Master timing, combos, and enemy pattern recognition.',
-    updatedAt: '2026-07-13',
-    emoji: '⚔️',
-    level: 'Intermediate'
-  },
-  {
-    slug: 'arcade-high-score-guide',
-    title: 'Arcade Games: High Score Strategies',
-    category: 'Competition',
-    excerpt: 'Become an arcade master! Learn optimal routes, combo building, and consistency techniques for top scores.',
-    updatedAt: '2026-07-12',
-    emoji: '🏆',
-    level: 'All Levels'
-  },
-  {
-    slug: 'racing-mastery-guide',
-    title: 'Racing Games: Track Mastery Guide',
-    category: 'Performance',
-    excerpt: 'Master racing games with professional techniques. Learn racing lines, braking points, and shortcut discovery.',
-    updatedAt: '2026-07-11',
-    emoji: '🏎️',
-    level: 'Advanced'
-  },
-  {
-    slug: 'memory-training-guide',
-    title: 'Memory Games: Brain Training Guide',
-    category: 'Cognitive',
-    excerpt: 'Improve your memory with proven techniques. Scientific approaches to pattern recognition and recall.',
-    updatedAt: '2026-07-10',
-    emoji: '🧠',
-    level: 'All Levels'
-  },
-  {
-    slug: 'stickman-fighting-guide',
-    title: 'Stickman Games: Fighting Techniques',
-    category: 'Combat',
-    excerpt: 'Master stickman combat with fluid animations and physics-based fighting. From basic combos to advanced techniques.',
-    updatedAt: '2026-07-09',
-    emoji: '🦸',
-    level: 'Beginner'
-  },
-  {
-    slug: 'sports-games-strategy',
-    title: 'Sports Games: Strategy & Tactics',
-    category: 'Strategy',
-    excerpt: 'Dominate sports games with strategic gameplay. Master timing, positioning, and advanced tactics.',
-    updatedAt: '2026-07-08',
-    emoji: '⚽',
-    level: 'Intermediate'
-  },
-  {
-    slug: 'simulation-games-guide',
-    title: 'Simulation Games: Immersive Guide',
-    category: 'Gameplay',
-    excerpt: 'Get the most out of simulation games. Learn realistic mechanics, resource management, and progression tips.',
-    updatedAt: '2026-07-07',
+    slug: 'placeholder-game-2',
+    title: 'Your Game Here',
+    subtitle: 'Guide Coming Soon',
+    category: 'RPG',
+    genre: 'Action / Adventure',
+    excerpt: 'A comprehensive guide for this popular game. Learn optimal builds, strategies, and tips from experienced players.',
     emoji: '🎮',
-    level: 'All Levels'
-  }
+    gradient: 'from-purple-600 to-pink-700',
+    accentColor: '#a855f7',
+    hasMiniGame: false,
+    miniGameSlug: '',
+    image: '',
+    updatedAt: '2026-07-15',
+  },
+  {
+    slug: 'placeholder-game-3',
+    title: 'Your Game Here',
+    subtitle: 'Guide Coming Soon',
+    category: 'Strategy',
+    genre: 'Real-Time Strategy',
+    excerpt: 'Dominate the battlefield with advanced tactics and unit compositions. Professional strategies for competitive play.',
+    emoji: '⚔️',
+    gradient: 'from-blue-600 to-cyan-700',
+    accentColor: '#3b82f6',
+    hasMiniGame: false,
+    miniGameSlug: '',
+    image: '',
+    updatedAt: '2026-07-15',
+  },
 ]
 
 export default function GuidesPage() {
@@ -117,72 +81,96 @@ export default function GuidesPage() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 px-4 sm:px-6 border-b border-white/10">
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <span className="font-mono text-[11px] tracking-[0.22em] text-purple-400 uppercase mb-4 block">[ Strategy Hub ]</span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4 tracking-tight">Game Guides</h1>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            Comprehensive guides, strategies, and walkthroughs for HTML5 games. Learn from experts and improve your gameplay.
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4 tracking-tight">
+            Game Guides
+          </h1>
+          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-8">
+            Comprehensive strategy guides for popular games. Each guide includes a themed HTML5 mini game to practice what you learn.
           </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+              <span className="text-purple-400">📚</span>
+              <span className="text-white/70 text-sm">{gameGuides.length} Game Guides</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+              <span className="text-orange-400">🎮</span>
+              <span className="text-white/70 text-sm">{gameGuides.filter(g => g.hasMiniGame).length} Mini Games</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Guides Grid */}
       <section className="py-16 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {guidesData.map((guide) => (
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {gameGuides.map((guide) => (
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}/`}
-                className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:bg-white/10 hover:border-purple-500/50 transition-all hover:-translate-y-1"
+                className="group block bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 hover:shadow-2xl"
               >
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-3xl">{guide.emoji}</span>
-                    <div>
-                      <span className="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-medium rounded">{guide.category}</span>
-                      <span className="ml-2 text-xs text-white/50">{guide.level}</span>
-                    </div>
+                {/* Card Image */}
+                <div className="relative h-48 overflow-hidden">
+                  {guide.image ? (
+                    <Image
+                      src={guide.image}
+                      alt={guide.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className={`w-full h-full bg-gradient-to-br ${guide.gradient} opacity-30`} />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#13121c] via-transparent to-transparent" />
+
+                  {/* Badges */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <span className={`px-3 py-1 bg-gradient-to-r ${guide.gradient} text-white text-xs font-semibold rounded-full shadow-lg`}>
+                      {guide.category}
+                    </span>
+                    {guide.hasMiniGame && (
+                      <span className="px-3 py-1 bg-black/60 backdrop-blur-sm text-orange-400 text-xs font-medium rounded-full border border-orange-500/30">
+                        🎮 +Mini Game
+                      </span>
+                    )}
                   </div>
-                  <h3 className="font-semibold text-white group-hover:text-purple-400 transition-colors mb-2 text-lg">
-                    {guide.title}
-                  </h3>
+
+                  {/* Emoji */}
+                  <div className="absolute top-4 right-4 w-14 h-14 bg-black/40 backdrop-blur-sm rounded-xl flex items-center justify-center text-3xl border border-white/10">
+                    {guide.emoji}
+                  </div>
+                </div>
+
+                {/* Card Content */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h2 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                      {guide.title}
+                    </h2>
+                    <span className="text-white/50 text-sm">{guide.subtitle}</span>
+                  </div>
                   <p className="text-sm text-white/50 leading-relaxed mb-4">
                     {guide.excerpt}
                   </p>
                   <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-xs text-white/50">
-                      {new Date(guide.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-white/40">{guide.genre}</span>
+                      <span className="text-xs text-white/30">•</span>
+                      <span className="text-xs text-white/40">
+                        {new Date(guide.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </span>
+                    </div>
+                    <span className="text-sm text-purple-400 font-medium group-hover:underline flex items-center gap-1">
+                      View Guide
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </span>
-                    <span className="text-xs text-purple-400 font-medium group-hover:underline">Read Guide →</span>
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="py-16 px-4 sm:px-6 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">Browse by Category</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {[
-              { name: 'Puzzle', emoji: '🧩' },
-              { name: 'Action', emoji: '⚔️' },
-              { name: 'Arcade', emoji: '🕹️' },
-              { name: 'Racing', emoji: '🏎️' },
-              { name: 'Memory', emoji: '🧠' },
-              { name: 'Sports', emoji: '⚽' },
-            ].map((cat) => (
-              <Link
-                key={cat.name}
-                href={`/wiki?category=${cat.name}`}
-                className="flex flex-col items-center gap-2 p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-purple-500/50 transition-all"
-              >
-                <span className="text-3xl">{cat.emoji}</span>
-                <span className="text-sm font-medium text-white">{cat.name}</span>
               </Link>
             ))}
           </div>
@@ -192,8 +180,10 @@ export default function GuidesPage() {
       {/* CTA Section */}
       <section className="py-16 px-4 sm:px-6 border-t border-white/10" style={{ background: '#0a0910' }}>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Test Your Skills?</h2>
-          <p className="text-white/60 mb-8">Put these strategies to the test by playing our free HTML5 games.</p>
+          <h2 className="text-3xl font-bold text-white mb-4">Want a Guide for Your Favorite Game?</h2>
+          <p className="text-white/60 mb-8 max-w-lg mx-auto">
+            We create in-depth strategy guides paired with themed mini games. Request a game guide and help us grow the collection.
+          </p>
           <Link
             href="/#games"
             className="inline-flex items-center gap-2 px-8 py-4 bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-purple-500/30"
@@ -201,7 +191,7 @@ export default function GuidesPage() {
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
-            Browse All Games
+            Play Mini Games
           </Link>
         </div>
       </section>
