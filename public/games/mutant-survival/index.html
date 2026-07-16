@@ -4,137 +4,162 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mutant Survival - Once Human Mini Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(180deg, #1a0a0a 0%, #0d0d0d 100%);
+      background: radial-gradient(ellipse at center, #1a0f0f 0%, #0a0505 60%, #000 100%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Rajdhani', 'Segoe UI', sans-serif;
       color: #fff;
       overflow: hidden;
+      user-select: none;
     }
     #gameContainer {
       position: relative;
-      border: 2px solid #ff6b35;
-      border-radius: 8px;
-      box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+      border: 2px solid #ff4400;
+      border-radius: 4px;
+      box-shadow:
+        0 0 40px rgba(255, 68, 0, 0.4),
+        0 0 80px rgba(255, 68, 0, 0.15),
+        inset 0 0 60px rgba(0,0,0,0.8);
     }
-    #gameCanvas {
-      display: block;
-      background: #0a0a0a;
-    }
+    #gameCanvas { display: block; background: #0a0505; }
     #ui {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      display: flex;
-      justify-content: space-between;
+      top: 8px; left: 8px; right: 8px;
+      display: flex; justify-content: space-between;
       pointer-events: none;
     }
     .stat {
-      background: rgba(0,0,0,0.7);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
+      background: rgba(10,5,5,0.85);
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: 1px solid rgba(255,68,0,0.3);
     }
-    .health { color: #ff4444; }
-    .score { color: #ffaa00; }
-    .wave { color: #ff6b35; }
+    .health { color: #ff3333; text-shadow: 0 0 8px rgba(255,51,51,0.6); }
+    .score { color: #ffaa00; text-shadow: 0 0 8px rgba(255,170,0,0.6); }
+    .wave { color: #ff6b35; text-shadow: 0 0 8px rgba(255,107,53,0.6); }
+
     #startScreen, #gameOver {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.9);
-      text-align: center;
-      padding: 20px;
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at center, rgba(20,8,8,0.97) 0%, rgba(0,0,0,0.98) 100%);
+      text-align: center; padding: 20px;
     }
     h1 {
-      font-size: 28px;
-      color: #ff6b35;
-      margin-bottom: 10px;
-      text-shadow: 0 0 20px rgba(255,107,53,0.5);
+      font-size: 32px;
+      color: #ff4400;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow:
+        0 0 20px rgba(255,68,0,0.8),
+        0 0 40px rgba(255,68,0,0.4),
+        0 2px 4px rgba(0,0,0,0.8);
     }
-    p {
-      color: #aaa;
-      margin-bottom: 20px;
-      font-size: 14px;
-      max-width: 300px;
+    .subtitle {
+      color: #aa6666;
+      margin-bottom: 24px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
+    p { color: #888; margin-bottom: 24px; font-size: 14px; max-width: 320px; line-height: 1.5; }
     .btn {
-      background: linear-gradient(135deg, #ff6b35 0%, #ff4444 100%);
+      background: linear-gradient(135deg, #cc3300 0%, #ff4400 50%, #cc3300 100%);
       color: white;
-      border: none;
-      padding: 12px 30px;
+      border: 1px solid #ff6600;
+      padding: 12px 36px;
       font-size: 16px;
-      font-weight: bold;
-      border-radius: 25px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-radius: 3px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.2s;
+      font-family: 'Rajdhani', sans-serif;
+      box-shadow: 0 0 20px rgba(255,68,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
     }
     .btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255,107,53,0.5);
+      box-shadow: 0 0 35px rgba(255,68,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, #ff4400 0%, #ff6600 50%, #ff4400 100%);
     }
+    .btn:active { transform: scale(0.98); }
     .hidden { display: none !important; }
+
     #instructions {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
+      position: absolute; bottom: 8px; left: 50%;
       transform: translateX(-50%);
-      background: rgba(0,0,0,0.7);
-      padding: 6px 14px;
-      border-radius: 15px;
+      background: rgba(0,0,0,0.6);
+      padding: 5px 14px;
+      border-radius: 3px;
       font-size: 11px;
-      color: #888;
+      color: #666;
+      letter-spacing: 1px;
       pointer-events: none;
+      border: 1px solid rgba(255,68,0,0.15);
+    }
+
+    .damage-flash {
+      position: absolute; inset: 0;
+      background: rgba(255,0,0,0.3);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.05s;
     }
   </style>
 </head>
 <body>
   <div id="gameContainer">
     <canvas id="gameCanvas" width="480" height="320"></canvas>
+    <div class="damage-flash" id="damageFlash"></div>
     <div id="ui" class="hidden">
-      <span class="stat health">❤️ <span id="healthVal">100</span></span>
-      <span class="stat wave">🌊 Wave <span id="waveVal">1</span></span>
-      <span class="stat score">⭐ <span id="scoreVal">0</span></span>
+      <span class="stat health">&#x2764; <span id="healthVal">100</span></span>
+      <span class="stat wave">&#x1F30A; WAVE <span id="waveVal">1</span></span>
+      <span class="stat score">&#x2B50; <span id="scoreVal">0</span></span>
     </div>
-    <div id="instructions">Mouse to aim & shoot | Click to fire</div>
+    <div id="instructions">MOUSE to aim &nbsp;&#x2022;&nbsp; CLICK to fire</div>
 
     <div id="startScreen">
-      <h1>🔴 MUTANT SURVIVAL</h1>
-      <p>Fight off waves of mutants in this Once Human themed survival game. How long can you survive?</p>
-      <button class="btn" onclick="startGame()">START GAME</button>
+      <h1>&#x1F534; MUTANT SURVIVAL</h1>
+      <div class="subtitle">Once Human</div>
+      <p>Waves of mutants are closing in. Hold your ground — survive as long as you can.</p>
+      <button class="btn" onclick="startGame()">ENGAGE</button>
     </div>
 
     <div id="gameOver" class="hidden">
-      <h1>💀 GAME OVER</h1>
-      <p>You survived <span id="finalWave">0</span> waves and scored <span id="finalScore">0</span> points!</p>
-      <button class="btn" onclick="startGame()">PLAY AGAIN</button>
+      <h1>&#x1F480; GAME OVER</h1>
+      <div class="subtitle">You have fallen</div>
+      <p>Survived <span id="finalWave" style="color:#ff6b35;font-weight:700">0</span> waves &nbsp;&#x2022;&nbsp; Scored <span id="finalScore" style="color:#ffaa00;font-weight:700">0</span></p>
+      <button class="btn" onclick="startGame()">TRY AGAIN</button>
     </div>
   </div>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
+    const W = 480, H = 320;
 
-    let game = { running: false, wave: 1, score: 0, health: 100, lastShot: 0 };
-    let player = { x: 240, y: 240, radius: 15, angle: 0 };
-    let bullets = [], mutants = [], particles = [];
+    let game = { running: false, wave: 1, score: 0, health: 100, lastShot: 0, shake: 0 };
+    let player = { x: 240, y: 240, radius: 14, angle: 0, muzzleFlash: 0 };
+    let bullets = [], mutants = [], particles = [], embers = [], splatters = [];
     let mouseX = 240, mouseY = 160;
+    let lastTime = 0;
 
     function startGame() {
-      game = { running: true, wave: 1, score: 0, health: 100, lastShot: 0 };
-      player = { x: 240, y: 240, radius: 15, angle: 0 };
-      bullets = []; mutants = []; particles = [];
+      game = { running: true, wave: 1, score: 0, health: 100, lastShot: 0, shake: 0 };
+      player = { x: 240, y: 240, radius: 14, angle: 0, muzzleFlash: 0 };
+      bullets = []; mutants = []; particles = []; embers = []; splatters = [];
       spawnWave();
       updateUI();
       document.getElementById('startScreen').classList.add('hidden');
@@ -148,16 +173,32 @@
       for (let i = 0; i < count; i++) {
         let side = Math.floor(Math.random() * 4);
         let x, y;
-        if (side === 0) { x = Math.random() * 480; y = -20; }
-        else if (side === 1) { x = 500; y = Math.random() * 320; }
-        else if (side === 2) { x = Math.random() * 480; y = 340; }
-        else { x = -20; y = Math.random() * 320; }
+        if (side === 0) { x = Math.random() * W; y = -20; }
+        else if (side === 1) { x = W + 20; y = Math.random() * H; }
+        else if (side === 2) { x = Math.random() * W; y = H + 20; }
+        else { x = -20; y = Math.random() * H; }
+        let type = Math.random() < 0.6 ? 0 : 1; // 0=standard, 1=brute
         mutants.push({
-          x, y, radius: 12 + Math.random() * 8,
-          speed: 0.8 + game.wave * 0.15,
-          health: 2 + Math.floor(game.wave / 3),
-          color: `hsl(${Math.random() * 30 + 350}, 70%, 50%)`,
-          wobble: Math.random() * Math.PI * 2
+          x, y,
+          radius: type === 0 ? 11 + Math.random() * 5 : 16 + Math.random() * 6,
+          speed: (type === 0 ? 0.7 : 0.4) + game.wave * 0.12,
+          health: type === 0 ? 2 + Math.floor(game.wave / 3) : 4 + Math.floor(game.wave / 2),
+          color: type === 0 ? `hsl(${Math.random() * 25 + 350}, 75%, 45%)` : `hsl(${Math.random() * 15 + 20}, 60%, 30%)`,
+          type,
+          wobble: Math.random() * Math.PI * 2,
+          eyeGlow: 0
+        });
+      }
+    }
+
+    function spawnEmbers() {
+      if (embers.length < 30 && Math.random() < 0.1) {
+        embers.push({
+          x: Math.random() * W, y: H + 5,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: -0.3 - Math.random() * 0.5,
+          life: 200 + Math.random() * 100,
+          size: 1 + Math.random() * 1.5
         });
       }
     }
@@ -171,50 +212,79 @@
     canvas.addEventListener('click', () => {
       if (!game.running) return;
       let now = Date.now();
-      if (now - game.lastShot < 150) return;
+      if (now - game.lastShot < 120) return;
       game.lastShot = now;
       let angle = Math.atan2(mouseY - player.y, mouseX - player.x);
       bullets.push({
-        x: player.x, y: player.y,
-        vx: Math.cos(angle) * 8,
-        vy: Math.sin(angle) * 8,
-        life: 60
+        x: player.x + Math.cos(angle) * 22,
+        y: player.y + Math.sin(angle) * 22,
+        vx: Math.cos(angle) * 10,
+        vy: Math.sin(angle) * 10,
+        life: 50,
+        trail: []
       });
+      player.muzzleFlash = 6;
+      game.shake = 3;
     });
 
-    function createParticles(x, y, color, count) {
+    function createParticles(x, y, color, count, spread = 4) {
       for (let i = 0; i < count; i++) {
+        let a = Math.random() * Math.PI * 2;
+        let spd = 1 + Math.random() * spread;
         particles.push({
           x, y,
-          vx: (Math.random() - 0.5) * 4,
-          vy: (Math.random() - 0.5) * 4,
-          life: 20 + Math.random() * 20,
+          vx: Math.cos(a) * spd,
+          vy: Math.sin(a) * spd - 1,
+          life: 25 + Math.random() * 25,
           color,
           size: 2 + Math.random() * 3
         });
       }
     }
 
+    function createSplatter(x, y) {
+      for (let i = 0; i < 6; i++) {
+        let a = Math.random() * Math.PI * 2;
+        let d = 3 + Math.random() * 8;
+        splatters.push({ x: x + Math.cos(a) * d, y: y + Math.sin(a) * d, life: 80 + Math.random() * 40 });
+      }
+    }
+
+    function flashDamage() {
+      let df = document.getElementById('damageFlash');
+      df.style.opacity = '1';
+      setTimeout(() => df.style.opacity = '0', 80);
+    }
+
     function update() {
       if (!game.running) return;
 
+      if (game.shake > 0) game.shake *= 0.8;
+
       player.angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+      if (player.muzzleFlash > 0) player.muzzleFlash--;
 
       bullets.forEach(b => {
+        b.trail.push({ x: b.x, y: b.y });
+        if (b.trail.length > 5) b.trail.shift();
         b.x += b.vx; b.y += b.vy; b.life--;
       });
-      bullets = bullets.filter(b => b.life > 0 && b.x > -10 && b.x < 490 && b.y > -10 && b.y < 330);
+      bullets = bullets.filter(b => b.life > 0 && b.x > -10 && b.x < W + 10 && b.y > -10 && b.y < H + 10);
 
       mutants.forEach(m => {
+        m.eyeGlow = (m.eyeGlow + 0.08) % (Math.PI * 2);
         let angle = Math.atan2(player.y - m.y, player.x - m.x);
-        m.wobble += 0.1;
-        m.x += Math.cos(angle + Math.sin(m.wobble) * 0.3) * m.speed;
-        m.y += Math.sin(angle + Math.sin(m.wobble) * 0.3) * m.speed;
+        m.wobble += 0.12;
+        m.x += Math.cos(angle + Math.sin(m.wobble) * 0.4) * m.speed;
+        m.y += Math.sin(angle + Math.sin(m.wobble) * 0.4) * m.speed;
 
         let dist = Math.hypot(player.x - m.x, player.y - m.y);
         if (dist < player.radius + m.radius) {
-          game.health -= 10;
-          createParticles(m.x, m.y, '#ff4444', 5);
+          game.health -= m.type === 1 ? 15 : 10;
+          createParticles(m.x, m.y, '#ff2222', 8, 5);
+          createSplatter(player.x, player.y);
+          flashDamage();
+          game.shake = 6;
           m.health = 0;
         }
       });
@@ -223,19 +293,25 @@
         mutants.forEach(m => {
           if (m.health <= 0) return;
           let dist = Math.hypot(b.x - m.x, b.y - m.y);
-          if (dist < m.radius) {
+          if (dist < m.radius + 3) {
             m.health--;
+            createParticles(b.x, b.y, '#888', 3, 2);
             if (m.health <= 0) {
-              game.score += 10 * game.wave;
-              createParticles(m.x, m.y, m.color, 8);
+              game.score += (m.type === 1 ? 25 : 10) * game.wave;
+              createParticles(m.x, m.y, m.color, 12, 6);
+              createSplatter(m.x, m.y);
             }
           }
         });
       });
 
       mutants = mutants.filter(m => m.health > 0);
-      particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.life--; });
+      particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.life--; });
       particles = particles.filter(p => p.life > 0);
+      embers.forEach(e => { e.x += e.vx; e.y += e.vy; e.life--; });
+      embers = embers.filter(e => e.life > 0);
+      splatters.forEach(s => s.life--);
+      splatters = splatters.filter(s => s.life > 0);
 
       if (mutants.length === 0) {
         game.wave++;
@@ -251,6 +327,7 @@
       }
 
       updateUI();
+      spawnEmbers();
     }
 
     function updateUI() {
@@ -260,64 +337,168 @@
     }
 
     function draw() {
-      ctx.fillStyle = '#0a0a0a';
-      ctx.fillRect(0, 0, 480, 320);
+      ctx.save();
+      if (game.shake > 0.5) {
+        ctx.translate(
+          (Math.random() - 0.5) * game.shake * 2,
+          (Math.random() - 0.5) * game.shake * 2
+        );
+      }
 
-      // Grid background
-      ctx.strokeStyle = 'rgba(255,107,53,0.1)';
+      // Background
+      let bg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W * 0.7);
+      bg.addColorStop(0, '#120808');
+      bg.addColorStop(1, '#050202');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Ground fog
+      let fog = ctx.createLinearGradient(0, H * 0.5, 0, H);
+      fog.addColorStop(0, 'rgba(30,10,5,0)');
+      fog.addColorStop(1, 'rgba(30,10,5,0.4)');
+      ctx.fillStyle = fog;
+      ctx.fillRect(0, 0, W, H);
+
+      // Grid
+      ctx.strokeStyle = 'rgba(255,68,0,0.06)';
       ctx.lineWidth = 1;
-      for (let x = 0; x < 480; x += 40) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 320); ctx.stroke();
+      for (let x = 0; x < W; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
       }
-      for (let y = 0; y < 320; y += 40) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(480, y); ctx.stroke();
+      for (let y = 0; y < H; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
       }
+
+      // Embers
+      embers.forEach(e => {
+        let a = (e.life / 300) * 0.6;
+        ctx.fillStyle = `rgba(255,${100 + Math.floor(Math.random()*60)},0,${a})`;
+        ctx.beginPath();
+        ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Splatters
+      splatters.forEach(s => {
+        let a = s.life / 120;
+        ctx.fillStyle = `rgba(80,10,5,${a})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 2 + Math.random() * 1, 0, Math.PI * 2);
+        ctx.fill();
+      });
 
       // Particles
       particles.forEach(p => {
-        ctx.globalAlpha = p.life / 40;
+        ctx.globalAlpha = Math.min(1, p.life / 20);
         ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * (p.life / 40), 0, Math.PI * 2);
         ctx.fill();
       });
       ctx.globalAlpha = 1;
 
       // Mutants
       mutants.forEach(m => {
+        // Shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.3)';
+        ctx.beginPath();
+        ctx.ellipse(m.x, m.y + m.radius + 2, m.radius * 0.8, m.radius * 0.3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Body
         ctx.fillStyle = m.color;
         ctx.beginPath();
         ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Mutant eyes
-        ctx.fillStyle = '#000';
-        let eyeAngle = Math.atan2(player.y - m.y, player.x - m.x);
+        // Body highlight
+        let hg = ctx.createRadialGradient(m.x - m.radius*0.3, m.y - m.radius*0.3, 0, m.x, m.y, m.radius);
+        hg.addColorStop(0, 'rgba(255,255,255,0.15)');
+        hg.addColorStop(1, 'rgba(0,0,0,0.3)');
+        ctx.fillStyle = hg;
         ctx.beginPath();
-        ctx.arc(m.x + Math.cos(eyeAngle - 0.4) * 5, m.y + Math.sin(eyeAngle - 0.4) * 5, 3, 0, Math.PI * 2);
-        ctx.arc(m.x + Math.cos(eyeAngle + 0.4) * 5, m.y + Math.sin(eyeAngle + 0.4) * 5, 3, 0, Math.PI * 2);
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Health bar
-        if (m.health > 1) {
-          ctx.fillStyle = '#333';
-          ctx.fillRect(m.x - 10, m.y - m.radius - 8, 20, 4);
-          ctx.fillStyle = '#ff4444';
-          ctx.fillRect(m.x - 10, m.y - m.radius - 8, 20 * (m.health / (2 + Math.floor(game.wave / 3))), 4);
+        // Rough outline
+        ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Eyes glow
+        let eyeAngle = Math.atan2(player.y - m.y, player.x - m.x);
+        let glowIntensity = 0.5 + Math.sin(m.eyeGlow) * 0.3;
+        let eyeR = m.type === 0 ? 3 : 4;
+        let eyeOffset = m.radius * 0.45;
+
+        // Eye glow halo
+        ctx.fillStyle = `rgba(255,50,0,${glowIntensity * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle - 0.4) * eyeOffset, m.y + Math.sin(eyeAngle - 0.4) * eyeOffset, eyeR + 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle + 0.4) * eyeOffset, m.y + Math.sin(eyeAngle + 0.4) * eyeOffset, eyeR + 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Eye pupils
+        ctx.fillStyle = m.type === 0 ? '#ff0000' : '#ff8800';
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle - 0.4) * eyeOffset, m.y + Math.sin(eyeAngle - 0.4) * eyeOffset, eyeR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle + 0.4) * eyeOffset, m.y + Math.sin(eyeAngle + 0.4) * eyeOffset, eyeR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Eye inner
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle - 0.4) * eyeOffset, m.y + Math.sin(eyeAngle - 0.4) * eyeOffset, eyeR * 0.45, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(m.x + Math.cos(eyeAngle + 0.4) * eyeOffset, m.y + Math.sin(eyeAngle + 0.4) * eyeOffset, eyeR * 0.45, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Health bar (only when damaged)
+        let maxHealth = m.type === 0 ? 2 + Math.floor(game.wave / 3) : 4 + Math.floor(game.wave / 2);
+        if (m.health < maxHealth) {
+          let bw = m.radius * 2;
+          let bx = m.x - m.radius;
+          let by = m.y - m.radius - 9;
+          ctx.fillStyle = 'rgba(0,0,0,0.7)';
+          ctx.fillRect(bx - 1, by - 1, bw + 2, 5);
+          ctx.fillStyle = m.type === 0 ? '#aa1111' : '#884400';
+          ctx.fillRect(bx, by, bw, 3);
+          ctx.fillStyle = m.type === 0 ? '#ff2222' : '#ff8800';
+          ctx.fillRect(bx, by, bw * (m.health / maxHealth), 3);
         }
       });
 
       // Bullets
-      ctx.fillStyle = '#ffaa00';
       bullets.forEach(b => {
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = 'rgba(255,170,0,0.3)';
+        // Trail
+        b.trail.forEach((t, i) => {
+          let a = (i / b.trail.length) * 0.4;
+          ctx.fillStyle = `rgba(255,200,50,${a})`;
+          ctx.beginPath();
+          ctx.arc(t.x, t.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        // Glow
+        ctx.fillStyle = 'rgba(255,200,50,0.25)';
         ctx.beginPath();
         ctx.arc(b.x, b.y, 7, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = '#ffaa00';
+        // Core
+        ctx.fillStyle = '#ffe066';
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 1.5, 0, Math.PI * 2);
+        ctx.fill();
       });
 
       // Player
@@ -325,36 +506,90 @@
       ctx.translate(player.x, player.y);
       ctx.rotate(player.angle);
 
+      // Player shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      ctx.beginPath();
+      ctx.ellipse(0, player.radius + 3, player.radius * 0.9, player.radius * 0.35, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Body glow
+      ctx.shadowColor = '#ff4400';
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = '#cc3300';
+      ctx.beginPath();
+      ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
       // Body
-      ctx.fillStyle = '#ff6b35';
+      let pg = ctx.createRadialGradient(-4, -4, 0, 0, 0, player.radius);
+      pg.addColorStop(0, '#ff6633');
+      pg.addColorStop(0.5, '#cc3300');
+      pg.addColorStop(1, '#881100');
+      ctx.fillStyle = pg;
       ctx.beginPath();
       ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
       ctx.fill();
 
-      // Gun
-      ctx.fillStyle = '#444';
-      ctx.fillRect(5, -4, 15, 8);
-      ctx.fillStyle = '#666';
-      ctx.fillRect(15, -3, 8, 6);
+      // Armor lines
+      ctx.strokeStyle = 'rgba(255,100,50,0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(0, 0, player.radius * 0.7, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Gun barrel
+      ctx.shadowColor = '#ff4400';
+      ctx.shadowBlur = player.muzzleFlash > 0 ? 15 : 5;
+      ctx.fillStyle = '#333';
+      ctx.fillRect(6, -4, 16, 8);
+      ctx.fillStyle = '#555';
+      ctx.fillRect(18, -3, 10, 6);
+      ctx.shadowBlur = 0;
+
+      // Muzzle flash
+      if (player.muzzleFlash > 0) {
+        let mf = player.muzzleFlash / 6;
+        let mg = ctx.createRadialGradient(28, 0, 0, 28, 0, 12 * mf);
+        mg.addColorStop(0, `rgba(255,255,200,${mf})`);
+        mg.addColorStop(0.3, `rgba(255,150,50,${mf * 0.7})`);
+        mg.addColorStop(1, 'rgba(255,68,0,0)');
+        ctx.fillStyle = mg;
+        ctx.beginPath();
+        ctx.arc(28, 0, 12 * mf, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
       ctx.restore();
 
-      // Health bar at bottom
-      ctx.fillStyle = 'rgba(0,0,0,0.5)';
-      ctx.fillRect(10, 295, 100, 16);
-      ctx.fillStyle = game.health > 30 ? '#ff4444' : '#ff0000';
-      ctx.fillRect(10, 295, game.health, 16);
-      ctx.strokeStyle = '#ff6b35';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(10, 295, 100, 16);
+      // Bottom health bar
+      ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      ctx.fillRect(10, H - 22, 110, 14);
+      let hpColor = game.health > 50 ? '#cc1111' : game.health > 25 ? '#cc6600' : '#ff0000';
+      let hpGlow = ctx.createLinearGradient(10, H - 22, 10 + game.health, H - 22);
+      hpGlow.addColorStop(0, hpColor);
+      hpGlow.addColorStop(1, game.health > 25 ? '#ff3333' : '#ff6600');
+      ctx.fillStyle = hpGlow;
+      ctx.fillRect(10, H - 22, game.health, 14);
+      ctx.strokeStyle = '#ff4400';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(10, H - 22, 100, 14);
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 10px Rajdhani, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${Math.max(0, game.health)}%`, 60, H - 11);
+
+      ctx.restore();
     }
 
-    function gameLoop() {
+    function gameLoop(ts) {
+      if (!game.running) return;
       update();
       draw();
-      if (game.running) requestAnimationFrame(gameLoop);
+      requestAnimationFrame(gameLoop);
     }
 
+    // Initial draw
     draw();
   </script>
 </body>
