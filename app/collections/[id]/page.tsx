@@ -1,18 +1,17 @@
 'use client'
 
-import { use } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { html5Games } from '@/lib/html5-games'
-import { getPopulatedCollections, collections } from '@/lib/collections'
+import { getPopulatedCollections } from '@/lib/collections'
 import Html5GameCard from '@/components/Html5GameCard'
 
 interface PageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export default function CollectionPage({ params }: PageProps) {
-  const { id } = use(params)
+  const { id } = params
   const allCollections = getPopulatedCollections(html5Games)
   const collection = allCollections.find((c) => c.id === id)
 
