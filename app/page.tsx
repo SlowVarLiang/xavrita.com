@@ -319,12 +319,12 @@ function StatsBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-center gap-8 md:gap-16 flex-wrap">
           <div className="text-center">
-            <span className="font-display text-3xl md:text-4xl font-normal" style={{ color: '#f97316' }}>80+</span>
+            <span className="font-display text-3xl md:text-4xl font-normal" style={{ color: '#f97316' }}>110+</span>
             <p className="text-xs text-white/50 mt-1">Free Games</p>
           </div>
           <div className="w-px h-8 bg-white/10 hidden md:block" />
           <div className="text-center">
-            <span className="font-display text-3xl md:text-4xl font-normal" style={{ color: '#f97316' }}>10</span>
+            <span className="font-display text-3xl md:text-4xl font-normal" style={{ color: '#f97316' }}>11</span>
             <p className="text-xs text-white/50 mt-1">Categories</p>
           </div>
           <div className="w-px h-8 bg-white/10 hidden md:block" />

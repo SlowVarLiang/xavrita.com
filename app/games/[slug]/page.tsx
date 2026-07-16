@@ -86,6 +86,15 @@ const CATEGORY_CONTENT: Record<string, {
     ],
     howToPlay: 'Kids games are designed for young learners. Colorful visuals, simple controls, and positive reinforcement make learning fun.'
   },
+  Strategy: {
+    tips: ['Plan ahead before making moves', 'Balance your resources carefully', 'Learn counter-strategies to common tactics', 'Adapt your strategy based on the situation', 'Practice specific strategies to master them'],
+    faqs: [
+      { q: 'What makes a good strategy?', a: 'A good strategy adapts to the situation. Flexible strategies that can counter multiple approaches tend to be most effective.' },
+      { q: 'Is Strategy game different from puzzle?', a: 'Strategy involves resource management and planning against an opponent. Puzzles are more about solving a static problem.' },
+      { q: 'Can I play strategy games against AI?', a: 'Yes! Most strategy games feature AI opponents of varying difficulty levels.' }
+    ],
+    howToPlay: 'Strategy games test your tactical thinking. Plan ahead, manage resources, and outmaneuver your opponent.'
+  },
   default: {
     tips: ['Read the instructions carefully before starting', 'Start with easy levels to understand the mechanics', 'Don\'t be afraid to experiment with different strategies', 'Have fun and enjoy the challenge!'],
     faqs: [

@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return html5Games.slice(0, 20).map((game) => ({ slug: game.slug }))
+  return html5Games.map((game) => ({ slug: game.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -124,6 +124,17 @@ const WIKI_CONTENT: Record<string, {
       { q: 'What age group are these games for?', a: 'Games range from toddler to pre-teen. Check individual game recommendations for specific ages.' },
       { q: 'Are they truly educational?', a: 'Educational games reinforce learning through engagement. They complement rather than replace traditional education.' },
       { q: 'Can multiple children play?', a: 'Most kids games are single-player. Check individual game descriptions.' }
+    ]
+  },
+  Strategy: {
+    overview: 'Strategy games challenge your tactical thinking and resource management. Plan ahead, anticipate opponent moves, and execute your strategy to victory.',
+    mechanics: ['Resource gathering and management', 'Strategic unit placement and composition', 'Terrain and map control', 'Tech tree and upgrade progression', 'Multi-turn planning and execution'],
+    advancedTips: ['Always scout before committing to a strategy', 'Balance economy (resources) vs military (units)', 'Learn counter-strategies for common tactics', 'Adapt your strategy based on opponent\'s moves', 'Practice specific strategies in tutorial modes'],
+    commonMistakes: ['Neglecting economy for military too early', 'Not adapting strategy when it\'s clearly countered', 'Overextending without backup plans', 'Ignoring the minimap or intelligence', 'Trying to execute complex strategies too early'],
+    faqs: [
+      { q: 'How can I improve at strategy games?', a: 'Start with simple strategies and master them before adding complexity. Watch replays of better players to learn optimal timings.' },
+      { q: 'Should I focus on attack or defense first?', a: 'Most strategy games benefit from a balanced approach. Secure your base before aggressive expansion.' },
+      { q: 'Are real-time and turn-based strategies different?', a: 'Yes! Real-time requires multitasking and quick decisions. Turn-based allows time for thoughtful planning.' }
     ]
   },
   default: {
