@@ -9,6 +9,15 @@ export const metadata: Metadata = {
 
 const guidesData = [
   {
+    slug: 'mutant-survival-guide',
+    title: 'Mutant Survival: Combat Strategies',
+    category: 'Survival',
+    excerpt: 'Master the Mutant Survival mini game. Learn enemy patterns, movement techniques, and high score strategies for Once Human themed combat.',
+    updatedAt: '2026-07-16',
+    emoji: '🔴',
+    level: 'All Levels'
+  },
+  {
     slug: 'puzzle-mastery-guide',
     title: 'Puzzle Games: From Beginner to Master',
     category: 'Strategy',
