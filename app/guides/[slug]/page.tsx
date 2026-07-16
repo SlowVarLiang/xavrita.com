@@ -187,7 +187,7 @@ export default function GuidePage({ params }: PageProps) {
 
   // Once Human specific images - real game videos from Steam CDN
   const onceHumanImages = {
-    hero: '/images/once-human/hero_wide.jpg',
+    hero: '/images/once-human/hero_wide.png',
     heroVideo: '/images/once-human/survival.webm',
   }
 
