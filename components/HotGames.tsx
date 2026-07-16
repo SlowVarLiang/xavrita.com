@@ -64,6 +64,8 @@ export default function HotGames() {
                 <img
                   src={game.thumbnail}
                   alt={game.name}
+                  width={320}
+                  height={240}
                   className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all"
                   loading="lazy"
                 />

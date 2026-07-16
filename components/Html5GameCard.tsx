@@ -19,6 +19,8 @@ export default function Html5GameCard({ game }: Html5GameCardProps) {
         <img
           src={game.thumbnail}
           alt={game.name}
+          width={320}
+          height={240}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />

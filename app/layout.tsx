@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     default: 'Xavrito - Free HTML5 Games',
     template: '%s | Xavrito'
   },
-  description: 'Play free HTML5 browser games instantly. No downloads. No signups. Just fun.',
-  keywords: ['HTML5 games', 'free games', 'browser games', 'mini games', 'online games'],
+  description: 'Play free HTML5 browser games instantly. No downloads. No signups. Just fun. Discover the best free HTML5 games for every category — puzzle, action, arcade, and more.',
+  keywords: ['free HTML5 games', 'HTML5 games', 'free games', 'browser games', 'mini games', 'online games'],
   authors: [{ name: 'Xavrito' }],
   icons: {
     icon: '/favicon.svg',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     url: 'https://xavrito.com',
     siteName: 'Xavrito',
     title: 'Xavrito - Free HTML5 Games',
-    description: 'Play free HTML5 browser games instantly.',
+    description: 'Play free HTML5 browser games instantly. No downloads. No signups. Just fun.',
   },
   twitter: {
     card: 'summary_large_image',
@@ -88,6 +88,31 @@ export default function RootLayout({
             window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
             plausible.init()
           `}
+        </Script>
+
+        {/* JSON-LD Structured Data */}
+        <Script id="jsonld-website" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Xavrito",
+            "url": "https://xavrito.com",
+            "description": "Play free HTML5 browser games instantly. No downloads. No signups.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://xavrito.com/?search={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </Script>
+        <Script id="jsonld-organization" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Xavrito",
+            "url": "https://xavrito.com",
+            "description": "Free HTML5 games platform — instant play, no downloads required."
+          })}
         </Script>
       </head>
       <body className={`min-h-screen flex flex-col antialiased ${inter.variable} ${playfair.variable} ${ibmPlexMono.variable} ${bebasNeue.variable}`}>

@@ -357,12 +357,12 @@ function GamesSection() {
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-12">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">01</p>
+          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">03</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Browse <span className="text-transparent bg-clip-text hero-gradient">Games</span>
+            Browse Free HTML5 <span className="text-transparent bg-clip-text hero-gradient">Games</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
-            Explore our collection of free HTML5 games. Puzzle, Action, Arcade, Racing and more.
+            Explore our full collection of free HTML5 games. From puzzle to action, arcade to racing — all free, instant play.
           </p>
         </div>
 
@@ -430,12 +430,12 @@ function ExploreSection() {
     <section className="relative z-10 px-4 sm:px-6 py-16 md:py-24 border-t border-white/10" style={{ background: '#0a0910' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">02</p>
+          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">04</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Explore <span className="text-transparent bg-clip-text hero-gradient">More</span>
+            Free HTML5 Games <span className="text-transparent bg-clip-text hero-gradient">Guides</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
-            Dive deeper into game knowledge with wikis and strategy guides
+            Dive deeper into game knowledge with strategy guides and wikis for free HTML5 games
           </p>
         </div>
 
@@ -509,12 +509,12 @@ function CollectionsSection() {
     <section className="relative z-10 px-4 sm:px-6 py-16 md:py-24 border-t border-white/10" style={{ background: 'linear-gradient(180deg, #13121c 0%, #0a0910 100%)' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">01</p>
+          <p className="font-mono text-[11px] tracking-[0.18em] text-purple-400 uppercase mb-4">02</p>
           <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
-            Curated <span className="text-transparent bg-clip-text hero-gradient">Collections</span>
+            Curated Free HTML5 Games <span className="text-transparent bg-clip-text hero-gradient">Collections</span>
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
-            Hand-picked game collections for every mood and moment
+            Hand-picked free HTML5 games collections for every mood and moment
           </p>
         </div>
 

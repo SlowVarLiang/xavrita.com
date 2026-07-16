@@ -38,6 +38,8 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
               <img
                 src={game.thumbnail}
                 alt={game.name}
+                width={160}
+                height={120}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
