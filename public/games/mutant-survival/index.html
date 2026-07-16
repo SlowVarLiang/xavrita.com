@@ -158,7 +158,7 @@
 
     function startGame() {
       game = { running: true, wave: 1, score: 0, health: 100, lastShot: 0, shake: 0 };
-      player = { x: 240, y: 240, radius: 14, angle: 0, muzzleFlash: 0 };
+      player = { x: 240, y: 240, radius: 14, angle: 0, muzzleFlash: 0, speed: 3 };
       bullets = []; mutants = []; particles = []; embers = []; splatters = [];
       spawnWave();
       updateUI();
@@ -211,6 +211,9 @@
 
     document.addEventListener('keydown', (e) => {
       let k = e.key.toLowerCase();
+      if (['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].includes(k)) {
+        e.preventDefault();
+      }
       if (k === 'w' || k === 'arrowup') keys.w = true;
       if (k === 'a' || k === 'arrowleft') keys.a = true;
       if (k === 's' || k === 'arrowdown') keys.s = true;
