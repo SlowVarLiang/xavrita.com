@@ -79,13 +79,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQESXXPK9H" strategy="afterInteractive" />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0FMSKS2EMD" strategy="afterInteractive" />
         <Script id="ga-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-ZQESXXPK9H');
+            gtag('config', 'G-0FMSKS2EMD');
           `}
         </Script>
 
