@@ -39,8 +39,43 @@ export interface BlacklistedGame {
  * spot stale entries.
  */
 export const BLACKLIST: BlacklistedGame[] = [
-  // Example:
-  // { slug: 'broken-game-slug', reason: 'thumbnail returns 404', date: '2026-08-21' },
+  // Auto-discovered 2026-08-21 via scripts/audit-thumbs.py + Playwright DOM audit.
+  // All 33 games return 400x400 placeholder thumbnails from img.gamepix.com
+  // instead of the expected 400x246 / 400x250 game artwork. Cards still link
+  // to the game pages but the missing visuals make the catalog look broken.
+  // Next step: source replacement games from the same categories.
+  { slug: 'candy-crush',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'temple-run',          reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'angry-birds',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'subway-surfers',      reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'tetris',              reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'pac-man',             reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'pinball',             reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'tennis-open',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'tower-blocks',        reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'stickman-hook',       reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'mario-kart',          reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'ice-breaker',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'skating-free',        reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'cannon-basketball',   reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'rope-swing',          reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'pet-save',            reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'sushi-party',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'drum-taps',           reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'jump-color',          reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'pixel-puzzle',        reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'gravity-balls',       reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'slide-puzzle',        reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'unblock-me',          reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'brain-quest',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'matching-cards',      reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'find-the-pair',       reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'concentration',       reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'reaction-test',       reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'aim-trainer',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'gravity-run',         reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'crafting',            reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
+  { slug: 'city-builder',        reason: '400x400 placeholder thumbnail (no artwork)', date: '2026-08-21' },
 ]
 
 /**

@@ -1196,7 +1196,7 @@ const rawHtml5Games: Html5Game[] = [
     tags: ['pair', 'visual', 'memory'],
   },
   {
-    slug: ' Concentration',
+    slug: 'concentration',
     name: 'Concentration',
     category: 'Memory',
     emoji: '🎯',
