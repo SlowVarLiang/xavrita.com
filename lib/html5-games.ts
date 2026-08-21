@@ -26,7 +26,8 @@ export const categories = [
   'Strategy',
 ]
 
-export const html5Games: Html5Game[] = [
+// Raw catalog — DO NOT export. Apply blacklist filter before exporting.
+const rawHtml5Games: Html5Game[] = [
   // === FEATURED (Top Quality) ===
   {
     slug: 'prism-match-3d',
@@ -1357,4 +1358,41 @@ export function getRelatedGames(game: Html5Game, limit = 4): Html5Game[] {
   return html5Games
     .filter(g => g.slug !== game.slug && g.category === game.category)
     .slice(0, limit)
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Blacklist pipeline
+// ─────────────────────────────────────────────────────────────────────
+// Filter rawHtml5Games through the blacklist at module load. Any slug
+// listed in lib/blacklist.ts is dropped before this module exports the
+// public `html5Games` list. To add a blacklisted game, edit
+// lib/blacklist.ts and commit — the next build will exclude it.
+//
+// Usage from a script or API route:
+//   import { html5Games, isBlacklisted, blacklistReason } from '@/lib/html5-games'
+//   if (isBlacklisted(slug)) { ... }
+//
+// To regenerate the public catalog from a fresh source (e.g. scraping
+// GamePix), feed results through `applyBlacklist`:
+//   import { applyBlacklist } from './blacklist'
+//   const cleaned = applyBlacklist(scrapedGames)
+//
+// ─────────────────────────────────────────────────────────────────────
+import { applyBlacklist, BLACKLIST, isBlacklisted } from './blacklist'
+
+/** Public catalog — rawHtml5Games with blacklisted entries filtered out. */
+export const html5Games: Html5Game[] = applyBlacklist(rawHtml5Games)
+
+// Re-export blacklist helpers for convenience so consumers only need
+// to import from one place.
+export { isBlacklisted, applyBlacklist, BLACKLIST }
+
+// Build-time audit log: warn at module load if any game was filtered.
+if (BLACKLIST.length > 0 && typeof console !== 'undefined') {
+  const dropped = rawHtml5Games.length - html5Games.length
+  if (dropped > 0) {
+    console.info(
+      `[xavrito] Applied blacklist: dropped ${dropped} of ${rawHtml5Games.length} games (${BLACKLIST.length} entries in lib/blacklist.ts)`,
+    )
+  }
 }
