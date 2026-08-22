@@ -1786,7 +1786,7 @@ For new players, the most useful single habit is to check what your opponent's l
       'Castle within the first 10 moves. A king stuck in the center is the most common reason beginners lose quickly.',
 
 
-      'Look at your opponent's last move before planning yours. Threats dictate responses; trying to "build a plan" without checking threats is how you hang pieces.',
+      'Look at your opponent\'s last move before planning yours. Threats dictate responses; trying to "build a plan" without checking threats is how you hang pieces.',
 
 
       'In the endgame, an active king beats extra material. March your king toward the center once queens are exchanged.',
@@ -1801,19 +1801,19 @@ For new players, the most useful single habit is to check what your opponent's l
     faqs: [
 
 
-      { q: 'Can I play Chess against a friend on Xavrito?', a: 'This build supports AI play only. For friend-vs-friend, set up a real board next to your laptop and use Xavrito as your analysis tool.' }},
+      { q: \'Can I play Chess against a friend on Xavrito?\', a: \'This build supports AI play only. For friend-vs-friend, set up a real board next to your laptop and use Xavrito as your analysis tool.\' }},
 
 
-      { q: 'What is castling?', a: 'A single move where the king moves two squares toward a rook and the rook jumps to the other side. It cannot be done if the king has moved, the rook has moved, the king is in check, or the king would pass through check.' }},
+      { q: \'What is castling?\', a: \'A single move where the king moves two squares toward a rook and the rook jumps to the other side. It cannot be done if the king has moved, the rook has moved, the king is in check, or the king would pass through check.\' }},
 
 
-      { q: 'How does the AI difficulty work?', a: 'Choose Easy, Medium, or Hard from the side menu. Easy makes random moves with light tactics. Hard plays a fuller engine that thinks several moves ahead.' }},
+      { q: \'How does the AI difficulty work?\', a: \'Choose Easy, Medium, or Hard from the side menu. Easy makes random moves with light tactics. Hard plays a fuller engine that thinks several moves ahead.\' }},
 
 
-      { q: 'What is en passant?', a: 'A special pawn capture available for exactly one move after the opponent advances a pawn two squares from its starting square. It exists to preserve the rule that you cannot skip a square by jumping.' }},
+      { q: \'What is en passant?\', a: \'A special pawn capture available for exactly one move after the opponent advances a pawn two squares from its starting square. It exists to preserve the rule that you cannot skip a square by jumping.\' }},
 
 
-      { q: 'Can I undo a move?', a: 'The Undo button is available in the side menu. The AI will also take back its reply so you can try a different line.' }},
+      { q: \'Can I undo a move?\', a: \'The Undo button is available in the side menu. The AI will also take back its reply so you can try a different line.\' }},
 
 
     ],
@@ -2413,19 +2413,19 @@ On Xavrito, Bubble Shooter is the modern HTML5 build. There is no download, no s
     faqs: [
 
 
-      { q: 'Is Bubble Shooter free to play?', a: 'Yes. The version on Xavrito is 100% free with no ads mid-gameplay, no in-app purchases, and no signup.' }},
+      { q: \'Is Bubble Shooter free to play?\', a: \'Yes. The version on Xavrito is 100% free with no ads mid-gameplay, no in-app purchases, and no signup.\' }},
 
 
-      { q: 'How do I aim in Bubble Shooter?', a: 'Move the mouse (or drag a finger) to aim the cannon. Click or release to fire. The trajectory is a straight line that bounces off the side walls.' }},
+      { q: \'How do I aim in Bubble Shooter?\', a: \'Move the mouse (or drag a finger) to aim the cannon. Click or release to fire. The trajectory is a straight line that bounces off the side walls.\' }},
 
 
-      { q: 'What happens when bubbles drop below the line?', a: 'The game ends. You can restart at any time and your high score is preserved in the browser local storage.' }},
+      { q: \'What happens when bubbles drop below the line?\', a: \'The game ends. You can restart at any time and your high score is preserved in the browser local storage.\' }},
 
 
-      { q: 'Can I play Bubble Shooter on mobile?', a: 'Yes. Touch controls are supported: drag to aim, tap to fire. The interface adapts to phone screens automatically.' }},
+      { q: \'Can I play Bubble Shooter on mobile?\', a: \'Yes. Touch controls are supported: drag to aim, tap to fire. The interface adapts to phone screens automatically.\' }},
 
 
-      { q: 'Is there a way to swap the next bubble?', a: 'Some variants show a swap or hold button. This HTML5 build does not, but you can use the queue preview to plan around the next shot.' }},
+      { q: \'Is there a way to swap the next bubble?\', a: \'Some variants show a swap or hold button. This HTML5 build does not, but you can use the queue preview to plan around the next shot.\' }},
 
 
     ],
@@ -2701,19 +2701,19 @@ Most tower defense games give you a fixed map and an escalating set of enemies, 
     faqs: [
 
 
-      { q: 'How many levels does the game have?', a: 'Our build has 12 levels plus an endless mode. Each level introduces one new enemy type and one new tower type.' }},
+      { q: \'How many levels does the game have?\', a: \'Our build has 12 levels plus an endless mode. Each level introduces one new enemy type and one new tower type.\' }},
 
 
-      { q: 'Can I refund a tower if I place it wrong?', a: 'Yes, the Refund button returns 75% of the tower cost. Use it freely while you are still learning a map.' }},
+      { q: \'Can I refund a tower if I place it wrong?\', a: \'Yes, the Refund button returns 75% of the tower cost. Use it freely while you are still learning a map.\' }},
 
 
-      { q: 'What is the meta-progression system?', a: 'Between levels, leftover gold becomes "stars" that you can spend on permanent upgrades (damage, range, gold income). They apply to every level from that point on.' }},
+      { q: \'What is the meta-progression system?\', a: \'Between levels, leftover gold becomes "stars" that you can spend on permanent upgrades (damage, range, gold income). They apply to every level from that point on.\' }},
 
 
-      { q: 'How long does a level take?', a: 'Most levels take 8-15 minutes. Endless mode can run for an hour or more if you survive the early waves.' }},
+      { q: \'How long does a level take?\', a: \'Most levels take 8-15 minutes. Endless mode can run for an hour or more if you survive the early waves.\' }},
 
 
-      { q: 'Is there a fast-forward button?', a: 'Yes, the speed toggle in the side menu switches between 1x, 2x, and 4x. Most players run 2x by default and 4x for early waves.' }},
+      { q: \'Is there a fast-forward button?\', a: \'Yes, the speed toggle in the side menu switches between 1x, 2x, and 4x. Most players run 2x by default and 4x for early waves.\' }},
 
 
     ],
@@ -2893,7 +2893,7 @@ Most tower defense games give you a fixed map and an escalating set of enemies, 
     developer: 'GamePix',
 
 
-    description: 'Catch falling eggs in your basket. Don't let them break!',
+    description: 'Catch falling eggs in your basket. Don\'t let them break!',
 
 
     controls: 'Arrow keys to move basket',
@@ -3316,19 +3316,19 @@ The mental trap of 2048 is that the early game feels easy and the late game feel
     faqs: [
 
 
-      { q: 'Is 2048 on Xavrito the original?', a: 'It is an HTML5 reimplementation of Gabriele Cirulli's 2014 game, with the same 4x4 board and merge rules.' }},
+      { q: \'Is 2048 on Xavrito the original?\', a: \'It is an HTML5 reimplementation of Gabriele Cirulli\'s 2014 game, with the same 4x4 board and merge rules.\' }},
 
 
-      { q: 'What is the highest tile I can make?', a: 'The classic target is 2048, but the game continues past that. Skilled players regularly reach 4096 and occasionally 8192.' }},
+      { q: \'What is the highest tile I can make?\', a: \'The classic target is 2048, but the game continues past that. Skilled players regularly reach 4096 and occasionally 8192.\' }},
 
 
-      { q: 'How do I undo a move?', a: 'The Undo button in the side menu undoes the last slide (and removes the newly spawned tile). You can undo as many times as you like.' }},
+      { q: \'How do I undo a move?\', a: \'The Undo button in the side menu undoes the last slide (and removes the newly spawned tile). You can undo as many times as you like.\' }},
 
 
-      { q: 'Is there a "continue from where I left off" feature?', a: 'No. Each session is fresh. Your best tile is stored as a personal best, but the board does not persist between visits.' }},
+      { q: \'Is there a "continue from where I left off" feature?\', a: \'No. Each session is fresh. Your best tile is stored as a personal best, but the board does not persist between visits.\' }},
 
 
-      { q: 'Can I play 2048 on my phone?', a: 'Yes. Swipe in any direction to slide the board. The interface adapts to phone screens.' }},
+      { q: \'Can I play 2048 on my phone?\', a: \'Yes. Swipe in any direction to slide the board. The interface adapts to phone screens.\' }},
 
 
     ],
@@ -3856,19 +3856,19 @@ The technique that separates fast solvers from slow ones is "starting letters". 
     faqs: [
 
 
-      { q: 'What themes are available?', a: 'Animals, Food, Sports, Technology, Science, Geography, and Mixed. Each theme has 15-25 words per puzzle.' }},
+      { q: \'What themes are available?\', a: \'Animals, Food, Sports, Technology, Science, Geography, and Mixed. Each theme has 15-25 words per puzzle.\' }},
 
 
-      { q: 'Can words run diagonally and backwards?', a: 'On Easy mode, words only run horizontally and vertically (left-to-right and top-to-bottom). Hard mode adds diagonal and reverse directions.' }},
+      { q: \'Can words run diagonally and backwards?\', a: \'On Easy mode, words only run horizontally and vertically (left-to-right and top-to-bottom). Hard mode adds diagonal and reverse directions.\' }},
 
 
-      { q: 'Do I have to find every word to win?', a: 'Yes. The puzzle completes when every word in the list has been circled or selected.' }},
+      { q: \'Do I have to find every word to win?\', a: \'Yes. The puzzle completes when every word in the list has been circled or selected.\' }},
 
 
-      { q: 'What is the best grid size?', a: '10x10 is comfortable for a quick break. 15x15 is the standard newspaper size and the most satisfying. Larger grids are available on Hard mode only.' }},
+      { q: \'What is the best grid size?\', a: \'10x10 is comfortable for a quick break. 15x15 is the standard newspaper size and the most satisfying. Larger grids are available on Hard mode only.\' }},
 
 
-      { q: 'Can I get a hint?', a: 'Yes. The Hint button reveals the first letter of an unfound word. Each hint adds 10 seconds to your solve time.' }},
+      { q: \'Can I get a hint?\', a: \'Yes. The Hint button reveals the first letter of an unfound word. Each hint adds 10 seconds to your solve time.\' }},
 
 
     ],
@@ -4036,19 +4036,19 @@ The reason Sudoku aged well is that it is purely logical. There is no trivia, no
     faqs: [
 
 
-      { q: 'Do I need to do math to play Sudoku?', a: 'No. There is no arithmetic. You are simply placing digits 1-9 so that each appears once per row, column, and 3x3 box.' }},
+      { q: \'Do I need to do math to play Sudoku?\', a: \'No. There is no arithmetic. You are simply placing digits 1-9 so that each appears once per row, column, and 3x3 box.\' }},
 
 
-      { q: 'How long does a typical Sudoku take?', a: 'Easy puzzles take 5-10 minutes. Hard puzzles take 20-30 minutes. Expert puzzles can take an hour for a slow player.' }},
+      { q: \'How long does a typical Sudoku take?\', a: \'Easy puzzles take 5-10 minutes. Hard puzzles take 20-30 minutes. Expert puzzles can take an hour for a slow player.\' }},
 
 
-      { q: 'Can I get a hint if I am stuck?', a: 'Yes, the Hint button in the side menu highlights a forced cell. There is also a Check button that flags any wrong entries.' }},
+      { q: \'Can I get a hint if I am stuck?\', a: \'Yes, the Hint button in the side menu highlights a forced cell. There is also a Check button that flags any wrong entries.\' }},
 
 
-      { q: 'Can I undo a wrong number?', a: 'Yes. Click the cell to bring up the number pad, then pick a different digit. The Check button will warn you if you create a contradiction.' }},
+      { q: \'Can I undo a wrong number?\', a: \'Yes. Click the cell to bring up the number pad, then pick a different digit. The Check button will warn you if you create a contradiction.\' }},
 
 
-      { q: 'What is a "valid" Sudoku puzzle?', a: 'A puzzle with exactly one solution that can be reached by pure logic, no guessing. Our generator checks uniqueness before serving a board.' }},
+      { q: \'What is a "valid" Sudoku puzzle?\', a: \'A puzzle with exactly one solution that can be reached by pure logic, no guessing. Our generator checks uniqueness before serving a board.\' }},
 
 
     ],
@@ -4468,19 +4468,19 @@ On Xavrito, Tap Tap runs in HTML5 with optional background music that adapts to 
     faqs: [
 
 
-      { q: 'Can I play Tap Tap on my phone?', a: 'Yes. The game is touch-friendly and the targets are sized for finger taps. The interface adapts to phone screens automatically.' }},
+      { q: \'Can I play Tap Tap on my phone?\', a: \'Yes. The game is touch-friendly and the targets are sized for finger taps. The interface adapts to phone screens automatically.\' }},
 
 
-      { q: 'How is my high score calculated?', a: 'Your score is the number of targets you hit in a single run before missing. The game does not penalize for accuracy, only for misses.' }},
+      { q: \'How is my high score calculated?\', a: \'Your score is the number of targets you hit in a single run before missing. The game does not penalize for accuracy, only for misses.\' }},
 
 
-      { q: 'Is the music important?', a: 'Yes. The targets are timed to the beat, and tapping in time with the music gives you a noticeable reaction-time advantage. Muting the music makes the game much harder.' }},
+      { q: \'Is the music important?\', a: \'Yes. The targets are timed to the beat, and tapping in time with the music gives you a noticeable reaction-time advantage. Muting the music makes the game much harder.\' }},
 
 
-      { q: 'Can I play without sound?', a: 'Yes, there is a Mute toggle. The game stays fully playable but you will lose the rhythm advantage that comes from syncing to the music.' }},
+      { q: \'Can I play without sound?\', a: \'Yes, there is a Mute toggle. The game stays fully playable but you will lose the rhythm advantage that comes from syncing to the music.\' }},
 
 
-      { q: 'What are the decoy targets?', a: 'Targets of a slightly different color that look similar to real ones but do not register as a hit. They are designed to test whether you are tapping too quickly.' }},
+      { q: \'What are the decoy targets?\', a: \'Targets of a slightly different color that look similar to real ones but do not register as a hit. They are designed to test whether you are tapping too quickly.\' }},
 
 
     ],
@@ -5155,19 +5155,19 @@ On Xavrito, Mahjong Classic uses the standard 144-tile set with bamboo, circles,
     faqs: [
 
 
-      { q: 'Is this the same as the four-player Chinese game?', a: 'No. This is the solitaire variant played alone with the same tile set. The four-player game is a different beast entirely.' }},
+      { q: \'Is this the same as the four-player Chinese game?\', a: \'No. This is the solitaire variant played alone with the same tile set. The four-player game is a different beast entirely.\' }},
 
 
-      { q: 'What counts as a "free" tile?', a: 'A tile is free if at least one of its long sides (left or right) is uncovered, and no tile sits on top of it. Tiles covered on the top cannot be removed.' }},
+      { q: \'What counts as a "free" tile?\', a: \'A tile is free if at least one of its long sides (left or right) is uncovered, and no tile sits on top of it. Tiles covered on the top cannot be removed.\' }},
 
 
-      { q: 'Do the flower and season tiles match each other?', a: 'They only match tiles of the same type (flower to flower, season to season). A flower and a season cannot be paired, even though both are bonus tiles.' }},
+      { q: \'Do the flower and season tiles match each other?\', a: \'They only match tiles of the same type (flower to flower, season to season). A flower and a season cannot be paired, even though both are bonus tiles.\' }},
 
 
-      { q: 'Can I undo a move?', a: 'No. The standard Mahjong Solitaire rules do not include undo. Restart the layout if you paint yourself into a corner.' }},
+      { q: \'Can I undo a move?\', a: \'No. The standard Mahjong Solitaire rules do not include undo. Restart the layout if you paint yourself into a corner.\' }},
 
 
-      { q: 'How long does a typical game take?', a: 'A quick layout takes 5-10 minutes. The complex turtle layouts can take 30-45 minutes for a first-time solve.' }},
+      { q: \'How long does a typical game take?\', a: \'A quick layout takes 5-10 minutes. The complex turtle layouts can take 30-45 minutes for a first-time solve.\' }},
 
 
     ],
@@ -5335,19 +5335,19 @@ Helicopter is a perfect "second monitor" game. It runs in a small tab in the cor
     faqs: [
 
 
-      { q: 'Is the game endless?', a: 'Yes. The cave is procedurally generated and scrolls forever. The game ends only when you crash into a wall or the ceiling.' }},
+      { q: \'Is the game endless?\', a: \'Yes. The cave is procedurally generated and scrolls forever. The game ends only when you crash into a wall or the ceiling.\' }},
 
 
-      { q: 'Can I play Helicopter on mobile?', a: 'Yes. Tap anywhere on the screen to lift the helicopter. The interface adapts to touch devices automatically.' }},
+      { q: \'Can I play Helicopter on mobile?\', a: \'Yes. Tap anywhere on the screen to lift the helicopter. The interface adapts to touch devices automatically.\' }},
 
 
-      { q: 'How is my score calculated?', a: 'Your score is the distance you traveled before crashing. It is saved locally in the browser as your personal best.' }},
+      { q: \'How is my score calculated?\', a: \'Your score is the distance you traveled before crashing. It is saved locally in the browser as your personal best.\' }},
 
 
-      { q: 'What is the best way to get a high score?', a: 'Stay near the vertical middle of the cave and tap in short bursts. Most players die from holding the key too long, not from missing the wall.' }},
+      { q: \'What is the best way to get a high score?\', a: \'Stay near the vertical middle of the cave and tap in short bursts. Most players die from holding the key too long, not from missing the wall.\' }},
 
 
-      { q: 'Can I turn the music and sound effects off?', a: 'Yes, the side menu has a Mute toggle. The setting is saved in the browser local storage.' }},
+      { q: \'Can I turn the music and sound effects off?\', a: \'Yes, the side menu has a Mute toggle. The setting is saved in the browser local storage.\' }},
 
 
     ],
@@ -5695,19 +5695,19 @@ On Xavrito, the game uses four colors (red, blue, green, yellow) by default, wit
     faqs: [
 
 
-      { q: 'How many colors are in the game?', a: 'Four colors (red, blue, green, yellow) by default. Expert mode adds a fifth color (purple).' }},
+      { q: \'How many colors are in the game?\', a: \'Four colors (red, blue, green, yellow) by default. Expert mode adds a fifth color (purple).\' }},
 
 
-      { q: 'How is the difficulty scaled?', a: 'The sequence length starts at 3 tiles and increases by 1 after every successful round. The game ends when you miss the sequence.' }},
+      { q: \'How is the difficulty scaled?\', a: \'The sequence length starts at 3 tiles and increases by 1 after every successful round. The game ends when you miss the sequence.\' }},
 
 
-      { q: 'Does Memory Color train my real-world memory?', a: 'Regular practice with sequence-memory games has been shown in studies to improve short-term recall, attention span, and pattern recognition.' }},
+      { q: \'Does Memory Color train my real-world memory?\', a: \'Regular practice with sequence-memory games has been shown in studies to improve short-term recall, attention span, and pattern recognition.\' }},
 
 
-      { q: 'Can I add more colors?', a: 'Yes, in the side menu you can enable Expert mode which adds a fifth color (purple) to the sequence.' }},
+      { q: \'Can I add more colors?\', a: \'Yes, in the side menu you can enable Expert mode which adds a fifth color (purple) to the sequence.\' }},
 
 
-      { q: 'Is there a leaderboard?', a: 'No. Your best is saved locally and is the only one that matters. The game is designed to be played for personal improvement, not competition.' }},
+      { q: \'Is there a leaderboard?\', a: \'No. Your best is saved locally and is the only one that matters. The game is designed to be played for personal improvement, not competition.\' }},
 
 
     ],
@@ -6109,7 +6109,7 @@ On Xavrito, the build includes the original 25 levels plus a "Pool Party" themed
       'Flips are faster but riskier. A back-flip takes about 0.4 seconds; a clean landing is the difference between a sub-30s run and a wipeout.',
 
 
-      'Use the bike's nose-down tilt on landing to keep speed. Landing flat kills momentum and you will not clear the next ramp.',
+      'Use the bike\'s nose-down tilt on landing to keep speed. Landing flat kills momentum and you will not clear the next ramp.',
 
 
       'Do not over-accelerate. The bike has a top speed, and going faster than the physics can handle throws you into a wild spin.',
@@ -6127,19 +6127,19 @@ On Xavrito, the build includes the original 25 levels plus a "Pool Party" themed
     faqs: [
 
 
-      { q: 'How many levels are there?', a: '25 levels in the original pack plus a 25-level "Pool Party" expansion. Each level is a unique obstacle course.' }},
+      { q: \'How many levels are there?\', a: \'25 levels in the original pack plus a 25-level "Pool Party" expansion. Each level is a unique obstacle course.\' }},
 
 
-      { q: 'Can I redo a level?', a: 'Yes. You can replay any unlocked level as many times as you want. Only your best time is recorded.' }},
+      { q: \'Can I redo a level?\', a: \'Yes. You can replay any unlocked level as many times as you want. Only your best time is recorded.\' }},
 
 
-      { q: 'What do the stars mean?', a: 'Each level has three star thresholds. Hitting all three on every level unlocks the bike customization menu.' }},
+      { q: \'What do the stars mean?\', a: \'Each level has three star thresholds. Hitting all three on every level unlocks the bike customization menu.\' }},
 
 
-      { q: 'How do I flip the bike?', a: 'Forward arrow or W accelerates, back arrow or S brakes, and the space bar or X does a flip. The rotation direction depends on the rider's current tilt.' }},
+      { q: \'How do I flip the bike?\', a: \'Forward arrow or W accelerates, back arrow or S brakes, and the space bar or X does a flip. The rotation direction depends on the rider\'s current tilt.\' }},
 
 
-      { q: 'Can I play on mobile?', a: 'Yes. Touch controls are supported with on-screen buttons for accelerate, brake, and flip.' }},
+      { q: \'Can I play on mobile?\', a: \'Yes. Touch controls are supported with on-screen buttons for accelerate, brake, and flip.\' }},
 
 
     ],
