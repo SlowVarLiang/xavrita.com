@@ -103,4 +103,4 @@ export function blacklistReason(slug: string): string | null {
  */
 export function applyBlacklist<T extends { slug: string }>(games: T[]): T[] {
   return games.filter(g => !blacklistedSlugs.has(g.slug))
-}
+}/* Vercel trigger */
