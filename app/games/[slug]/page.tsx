@@ -183,7 +183,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords,
     alternates: { canonical },
     openGraph: {
-      type: 'video.game',
+      // Note: Next.js's strict `og:type` union doesn't include 'video.game'
+      // (allowed: video.movie, video.episode, video.tv_show, video.other).
+      // We use 'video.other' for closest semantic match + add 'video.game'
+      // semantics via the JSON-LD VideoGame schema (more authoritative).
+      type: 'video.other',
       locale: 'en_US',
       url: canonical,
       siteName: 'Xavrito',
