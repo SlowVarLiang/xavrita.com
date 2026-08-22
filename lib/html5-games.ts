@@ -1786,7 +1786,7 @@ For new players, the most useful single habit is to check what your opponent's l
       'Castle within the first 10 moves. A king stuck in the center is the most common reason beginners lose quickly.',
 
 
-      'Look at your opponent's last move before planning yours. Threats dictate responses; trying to "build a plan" without checking threats is how you hang pieces.',
+      'Look at your opponent\'s last move before planning yours. Threats dictate responses; trying to "build a plan" without checking threats is how you hang pieces.',
 
 
       'In the endgame, an active king beats extra material. March your king toward the center once queens are exchanged.',
@@ -1822,7 +1822,7 @@ For new players, the most useful single habit is to check what your opponent's l
   },
 
 
-    
+
 
 
   {
@@ -2434,7 +2434,7 @@ On Xavrito, Bubble Shooter is the modern HTML5 build. There is no download, no s
   },
 
 
-    
+
 
 
   {
@@ -2722,7 +2722,7 @@ Most tower defense games give you a fixed map and an escalating set of enemies, 
   },
 
 
-    
+
 
 
   {
@@ -2893,7 +2893,7 @@ Most tower defense games give you a fixed map and an escalating set of enemies, 
     developer: 'GamePix',
 
 
-    description: 'Catch falling eggs in your basket. Don't let them break!',
+    description: 'Catch falling eggs in your basket. Don\'t let them break!',
 
 
     controls: 'Arrow keys to move basket',
@@ -3316,7 +3316,7 @@ The mental trap of 2048 is that the early game feels easy and the late game feel
     faqs: [
 
 
-      { q: 'Is 2048 on Xavrito the original?', a: 'It is an HTML5 reimplementation of Gabriele Cirulli's 2014 game, with the same 4x4 board and merge rules.' },
+      { q: 'Is 2048 on Xavrito the original?', a: 'It is an HTML5 reimplementation of Gabriele Cirulli\'s 2014 game, with the same 4x4 board and merge rules.' },
 
 
       { q: 'What is the highest tile I can make?', a: 'The classic target is 2048, but the game continues past that. Skilled players regularly reach 4096 and occasionally 8192.' },
@@ -3337,7 +3337,7 @@ The mental trap of 2048 is that the early game feels easy and the late game feel
   },
 
 
-    
+
 
 
   {
@@ -3877,7 +3877,7 @@ The technique that separates fast solvers from slow ones is "starting letters". 
   },
 
 
-    
+
 
 
   {
@@ -4057,7 +4057,7 @@ The reason Sudoku aged well is that it is purely logical. There is no trivia, no
   },
 
 
-    
+
 
 
   {
@@ -4489,7 +4489,7 @@ On Xavrito, Tap Tap runs in HTML5 with optional background music that adapts to 
   },
 
 
-    
+
 
 
   {
@@ -5176,7 +5176,7 @@ On Xavrito, Mahjong Classic uses the standard 144-tile set with bamboo, circles,
   },
 
 
-    
+
 
 
   {
@@ -5356,7 +5356,7 @@ Helicopter is a perfect "second monitor" game. It runs in a small tab in the cor
   },
 
 
-    
+
 
 
   {
@@ -5716,7 +5716,7 @@ On Xavrito, the game uses four colors (red, blue, green, yellow) by default, wit
   },
 
 
-    
+
 
 
   {
@@ -6136,7 +6136,7 @@ On Xavrito, the build includes the original 25 levels plus a "Pool Party" themed
       { q: 'What do the stars mean?', a: 'Each level has three star thresholds. Hitting all three on every level unlocks the bike customization menu.' },
 
 
-      { q: 'How do I flip the bike?', a: 'Forward arrow or W accelerates, back arrow or S brakes, and the space bar or X does a flip. The rotation direction depends on the rider's current tilt.' },
+      { q: 'How do I flip the bike?', a: 'Forward arrow or W accelerates, back arrow or S brakes, and the space bar or X does a flip. The rotation direction depends on the rider\'s current tilt.' },
 
 
       { q: 'Can I play on mobile?', a: 'Yes. Touch controls are supported with on-screen buttons for accelerate, brake, and flip.' },
@@ -6148,7 +6148,7 @@ On Xavrito, the build includes the original 25 levels plus a "Pool Party" themed
   },
 
 
-    
+
 
 
   {
