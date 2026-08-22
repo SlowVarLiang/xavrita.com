@@ -218,8 +218,17 @@ export default function GamePage({ params }: PageProps) {
 
   const relatedGames = getRelatedGames(game, 4)
   const categoryContent = CATEGORY_CONTENT[game.category] || CATEGORY_CONTENT.default
-  const aboutText = buildAboutText(game)
-  const whyPlayText = buildWhyPlayText(game)
+
+  // Per-game authored content (webgogogo 精品 landing page) — fall back to
+  // generated per-category content when game.seo is not authored.
+  const seo = game.seo
+  const h1Text        = seo?.h1        ?? `${game.name} — Free ${game.category} Game Online`
+  const subtitleText  = seo?.subtitle  ?? 'Free to play in your browser. No download. No signup.'
+  const introText     = seo?.intro     ?? game.description
+  const aboutParagraphs = (seo?.body   ?? buildAboutText(game)).split('\n\n')
+  const tipsList      = seo?.tips      ?? categoryContent.tips
+  const faqList       = seo?.faqs      ?? categoryContent.faqs
+  const whyPlayText   = buildWhyPlayText(game)
   const canonical = `https://xavrito.com/games/${game.slug}`
 
   // ── JSON-LD: VideoGame + FAQPage + BreadcrumbList ─────────────────
@@ -358,10 +367,11 @@ export default function GamePage({ params }: PageProps) {
                 <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">{game.category}</span>
                 <span className="text-3xl" aria-hidden="true">{game.emoji}</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight tracking-tight">
-                {game.name} <span className="text-white/50 font-normal text-2xl sm:text-3xl">— Free {game.category} Game Online</span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 leading-tight tracking-tight">
+                {h1Text}
               </h1>
-              <p className="text-lg text-white/60 mb-6 leading-relaxed max-w-2xl">{game.description}</p>
+              <p className="text-sm text-white/50 mb-4">{subtitleText}</p>
+              <p className="text-lg text-white/70 mb-6 leading-relaxed max-w-2xl">{introText}</p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-8">
@@ -422,9 +432,12 @@ export default function GamePage({ params }: PageProps) {
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-1 bg-purple-500 rounded-full" />
             <h2 className="text-xl font-bold text-white">About {game.name}</h2>
+            {seo?.body && (
+              <span className="text-xs text-white/40 uppercase tracking-wide ml-2">authored</span>
+            )}
           </div>
           <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
-            {aboutText.split('\n\n').map((para, i) => (
+            {aboutParagraphs.map((para, i) => (
               <p key={i} className="text-white/70 leading-relaxed">{para}</p>
             ))}
           </div>
@@ -457,9 +470,12 @@ export default function GamePage({ params }: PageProps) {
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-1 bg-purple-500 rounded-full" />
             <h2 className="text-xl font-bold text-white">{game.name} Tips &amp; Tricks</h2>
+            {seo?.tips && (
+              <span className="text-xs text-white/40 uppercase tracking-wide ml-2">authored</span>
+            )}
           </div>
           <div className="grid gap-4">
-            {categoryContent.tips.map((tip, i) => (
+            {tipsList.map((tip, i) => (
               <div key={i} className="flex items-start gap-3 p-4 bg-white/5 border border-white/10 rounded-xl">
                 <div className="w-6 h-6 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-purple-400 text-sm font-bold">{i + 1}</span>
@@ -492,7 +508,7 @@ export default function GamePage({ params }: PageProps) {
             <h2 className="text-xl font-bold text-white">FAQ — {game.name}</h2>
           </div>
           <div className="space-y-3">
-            {categoryContent.faqs.map((faq, i) => (
+            {faqList.map((faq, i) => (
               <details key={i} className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-medium text-white hover:text-purple-400 transition-colors">
                   {faq.q}
