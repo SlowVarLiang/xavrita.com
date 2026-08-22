@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { html5Games, getGameBySlug, getRelatedGames } from '@/lib/html5-games'
 import GameEmbed from '@/components/GameEmbed'
 import Html5GameCard from '@/components/Html5GameCard'
@@ -105,16 +106,105 @@ const CATEGORY_CONTENT: Record<string, {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────
+// SEO helpers (webgogogo TDH formula)
+// ─────────────────────────────────────────────────────────────────────
+
+/**
+ * Build a per-game SEO description in the 150-160 char sweet spot
+ * (webgogogo: 关键词 + 价值主张 + 行动号召).
+ */
+function buildDescription(game: ReturnType<typeof getGameBySlug>): string {
+  if (!game) return ''
+  const base = game.description.replace(/\.$/, '')
+  const tag = game.tags[0] || game.category.toLowerCase()
+  const cta = `Play ${game.name} free in your browser — no download, no signup.`
+  // e.g. "Rotate 3D cubes to match colors in this addictive puzzle. Play Prism Match 3D free in your browser — no download, no signup."
+  const out = `${base} ${cta}`
+  // Trim/pad to 150-160 chars
+  if (out.length < 150) {
+    return out + ` ${game.name} is a top-rated ${tag} ${game.category.toLowerCase()} game on Xavrito.`
+  }
+  if (out.length > 160) {
+    return out.slice(0, 157).replace(/[,.;:!?]?[^,.;:!?]*$/, '.')
+  }
+  return out
+}
+
+/**
+ * Build a per-game "About" long-form paragraph (200+ words) for SEO body
+ * density. Uses the game's category + tags to weave in keyword variations
+ * without being spammy.
+ */
+function buildAboutText(game: NonNullable<ReturnType<typeof getGameBySlug>>): string {
+  const tag1 = game.tags[0] || game.category.toLowerCase()
+  const tag2 = game.tags[1] || 'arcade'
+  const tag3 = game.tags[2] || 'casual'
+  return `Looking for a free ${game.category.toLowerCase()} game online? ${game.name} is one of the most popular ${tag1} titles on Xavrito, and you can play it instantly in your browser — no download, no signup, no payment required. ${game.description} Whether you are a casual player looking for a quick break or a dedicated gamer chasing the highest score, ${game.name} delivers the kind of fast, accessible fun that has made HTML5 games so popular. With simple controls and a clean visual design, ${game.name} works on any device — desktop, laptop, tablet, or phone. The game loads directly in your browser and runs at 60fps, so you get smooth gameplay without any installations or plugins.
+
+${game.name} is part of our curated ${game.category} collection, which features the best free browser games from the GamePix network. We add new ${game.category.toLowerCase()} games every week, so bookmark this page and check back for fresh challenges. The controls are straightforward${game.controls ? ` (${game.controls.toLowerCase()})` : ''}, and each session takes just a few minutes, making ${game.name} perfect for a quick coffee break or a longer gaming session.
+
+Players who enjoy ${game.name} also tend to like our other ${tag1}, ${tag2}, and ${tag3} titles — check out the related games section below for more free ${game.category.toLowerCase()} hits. Whether you are searching for ${tag1} games, ${game.category.toLowerCase()} games, or just a fun way to kill five minutes online, ${game.name} delivers. Bookmark this page, share with friends, and come back tomorrow for a new high score.`
+}
+
+/**
+ * Build a 80-word "Why play" benefits paragraph.
+ */
+function buildWhyPlayText(game: NonNullable<ReturnType<typeof getGameBySlug>>): string {
+  return `Why play ${game.name} on Xavrito? Five reasons. First, it is 100% free with no ads mid-gameplay and no paywalls. Second, it runs in any modern browser with no download, no plugin, and no account. Third, the controls are dead simple so anyone can pick it up in seconds. Fourth, every session is short enough for a coffee break but deep enough to keep you coming back. Fifth, the ${game.category.toLowerCase()} genre is one of the most popular on Xavrito, so you have a deep catalog of similar games to try next.`
+}
+
 export async function generateStaticParams() {
   return html5Games.map((game) => ({ slug: game.slug }))
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const game = getGameBySlug(params.slug)
   if (!game) return { title: 'Game Not Found | Xavrito' }
+
+  const description = buildDescription(game)
+  const canonical = `https://xavrito.com/games/${game.slug}`
+  const keywords = [
+    game.name,
+    `${game.name} game`,
+    `${game.name} online`,
+    `play ${game.name}`,
+    `free ${game.name}`,
+    `${game.category} games`,
+    `free ${game.category.toLowerCase()} games`,
+    ...game.tags.slice(0, 3),
+  ]
+
   return {
-    title: `${game.name} - Free Online ${game.category} Game | Xavrito`,
-    description: `${game.description} Play instantly in your browser.`,
+    // Note: the root layout's title template is '%s | Xavrito', so the per-page
+    // title here should NOT include '| Xavrito' to avoid duplication.
+    title: `${game.name} - Free Online ${game.category} Game`,
+    description,
+    keywords,
+    alternates: { canonical },
+    openGraph: {
+      type: 'video.game',
+      locale: 'en_US',
+      url: canonical,
+      siteName: 'Xavrito',
+      title: `${game.name} - Free ${game.category} Game Online`,
+      description,
+      images: [
+        {
+          url: game.thumbnail,
+          width: 400,
+          height: 246,
+          alt: `${game.name} - Free ${game.category} game screenshot`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${game.name} - Free Online ${game.category} Game`,
+      description,
+      images: [game.thumbnail],
+    },
+    robots: { index: true, follow: true },
   }
 }
 
@@ -124,9 +214,103 @@ export default function GamePage({ params }: PageProps) {
 
   const relatedGames = getRelatedGames(game, 4)
   const categoryContent = CATEGORY_CONTENT[game.category] || CATEGORY_CONTENT.default
+  const aboutText = buildAboutText(game)
+  const whyPlayText = buildWhyPlayText(game)
+  const canonical = `https://xavrito.com/games/${game.slug}`
+
+  // ── JSON-LD: VideoGame + FAQPage + BreadcrumbList ─────────────────
+  const videoGameLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoGame',
+    name: game.name,
+    description: game.description,
+    image: game.thumbnail,
+    url: canonical,
+    genre: game.category,
+    gamePlatform: ['Web Browser', 'Windows', 'macOS', 'Linux', 'ChromeOS'],
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'Any (HTML5 browser)',
+    inLanguage: 'en',
+    playMode: 'SinglePlayer',
+    keywords: game.tags.join(', '),
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: canonical,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Xavrito',
+      url: 'https://xavrito.com',
+    },
+  }
+
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      ...categoryContent.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+      {
+        '@type': 'Question',
+        name: `Is ${game.name} free to play?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes! ${game.name} is 100% free to play on Xavrito. No downloads, no signups, no payments - just open and play instantly in your browser.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Can I play ${game.name} on mobile?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes. ${game.name} is built on HTML5 and runs in any modern mobile browser. Touch controls are supported where applicable.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Do I need to create an account to play ${game.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `No. ${game.name} on Xavrito requires no signup, no login, and no personal information. Open and play.`,
+        },
+      },
+    ],
+  }
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://xavrito.com' },
+      { '@type': 'ListItem', position: 2, name: game.category, item: `https://xavrito.com/#games` },
+      { '@type': 'ListItem', position: 3, name: game.name, item: canonical },
+    ],
+  }
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #0a0910 0%, #13121c 100%)' }}>
+      {/* JSON-LD: VideoGame */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoGameLd) }}
+      />
+      {/* JSON-LD: FAQPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5 border-b border-white/10" style={{ background: 'rgba(10, 9, 16, 0.9)', backdropFilter: 'blur(12px)' }}>
         <Link href="/" className="flex items-center gap-2 group">
@@ -151,7 +335,7 @@ export default function GamePage({ params }: PageProps) {
       {/* Breadcrumb */}
       <div className="pt-20 border-b border-white/10 px-4 sm:px-6 py-3">
         <div className="max-w-7xl mx-auto">
-          <nav className="flex items-center gap-2 text-sm text-white/50">
+          <nav className="flex items-center gap-2 text-sm text-white/50" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-purple-400 transition-colors">Home</Link>
             <span>/</span>
             <Link href="/#games" className="hover:text-purple-400 transition-colors">Games</Link>
@@ -168,15 +352,17 @@ export default function GamePage({ params }: PageProps) {
             <div className="lg:col-span-3">
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">{game.category}</span>
-                <span className="text-3xl">{game.emoji}</span>
+                <span className="text-3xl" aria-hidden="true">{game.emoji}</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight tracking-tight">{game.name}</h1>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight tracking-tight">
+                {game.name} <span className="text-white/50 font-normal text-2xl sm:text-3xl">— Free {game.category} Game Online</span>
+              </h1>
               <p className="text-lg text-white/60 mb-6 leading-relaxed max-w-2xl">{game.description}</p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-8">
                 {game.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-white/10 text-white/60 rounded-full text-xs font-medium capitalize">{tag.replace('-', ' ')}</span>
+                  <span key={tag} className="px-3 py-1 bg-white/10 text-white/60 rounded-full text-xs font-medium capitalize">{tag.replace(/-/g, ' ')}</span>
                 ))}
               </div>
 
@@ -201,21 +387,43 @@ export default function GamePage({ params }: PageProps) {
 
             <div className="lg:col-span-2">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-purple-500/10 border border-white/10">
-                <img src={game.thumbnail} alt={game.name} className="w-full h-full object-cover" loading="eager" />
+                <img
+                  src={game.thumbnail}
+                  alt={`${game.name} - free online ${game.category.toLowerCase()} game screenshot`}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  width={400}
+                  height={246}
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Game Embed */}
+      {/* Play {name} */}
       <section id="play" className="py-12 px-4 sm:px-6 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-1 bg-purple-500 rounded-full" />
-            <h2 className="text-lg font-semibold text-white">Play {game.name}</h2>
+            <h2 className="text-lg font-semibold text-white">Play {game.name} Online</h2>
           </div>
           <GameEmbed game={game} />
+        </div>
+      </section>
+
+      {/* About {name} — long-form SEO body */}
+      <section id="about" className="py-12 px-4 sm:px-6 border-t border-white/10">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-1 bg-purple-500 rounded-full" />
+            <h2 className="text-xl font-bold text-white">About {game.name}</h2>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
+            {aboutText.split('\n\n').map((para, i) => (
+              <p key={i} className="text-white/70 leading-relaxed">{para}</p>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -226,24 +434,25 @@ export default function GamePage({ params }: PageProps) {
             <div className="w-8 h-1 bg-purple-500 rounded-full" />
             <h2 className="text-xl font-bold text-white">How to Play {game.name}</h2>
           </div>
-          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-            <p className="text-white/60 leading-relaxed">{categoryContent.howToPlay}</p>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-4">
+            <h3 className="text-lg font-semibold text-white">The basics</h3>
+            <p className="text-white/70 leading-relaxed">{categoryContent.howToPlay}</p>
             {game.controls && (
-              <div className="mt-4 pt-4 border-t border-white/10">
-                <h3 className="font-semibold text-white mb-2">Controls</h3>
-                <p className="text-white/60">{game.controls}</p>
-              </div>
+              <>
+                <h3 className="text-lg font-semibold text-white pt-2 border-t border-white/10">Controls</h3>
+                <p className="text-white/70 leading-relaxed">{game.controls}</p>
+              </>
             )}
           </div>
         </div>
       </section>
 
-      {/* Tips Section */}
+      {/* Tips */}
       <section className="py-12 px-4 sm:px-6 border-t border-white/10">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-1 bg-purple-500 rounded-full" />
-            <h2 className="text-xl font-bold text-white">{game.name} Tips & Tricks</h2>
+            <h2 className="text-xl font-bold text-white">{game.name} Tips &amp; Tricks</h2>
           </div>
           <div className="grid gap-4">
             {categoryContent.tips.map((tip, i) => (
@@ -251,19 +460,32 @@ export default function GamePage({ params }: PageProps) {
                 <div className="w-6 h-6 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-purple-400 text-sm font-bold">{i + 1}</span>
                 </div>
-                <p className="text-white/60">{tip}</p>
+                <p className="text-white/70">{tip}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* Why Play */}
       <section className="py-12 px-4 sm:px-6 border-t border-white/10">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-1 bg-purple-500 rounded-full" />
-            <h2 className="text-xl font-bold text-white">FAQ - {game.name}</h2>
+            <h2 className="text-xl font-bold text-white">Why Play {game.name} on Xavrito</h2>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+            <p className="text-white/70 leading-relaxed">{whyPlayText}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-12 px-4 sm:px-6 border-t border-white/10">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-1 bg-purple-500 rounded-full" />
+            <h2 className="text-xl font-bold text-white">FAQ — {game.name}</h2>
           </div>
           <div className="space-y-3">
             {categoryContent.faqs.map((faq, i) => (
@@ -274,7 +496,7 @@ export default function GamePage({ params }: PageProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <div className="px-5 pb-5 text-sm text-white/50 leading-relaxed border-t border-white/10 pt-4">{faq.a}</div>
+                <div className="px-5 pb-5 text-sm text-white/60 leading-relaxed border-t border-white/10 pt-4">{faq.a}</div>
               </details>
             ))}
             <details className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
@@ -284,7 +506,7 @@ export default function GamePage({ params }: PageProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-sm text-white/50 leading-relaxed border-t border-white/10 pt-4">
+              <div className="px-5 pb-5 text-sm text-white/60 leading-relaxed border-t border-white/10 pt-4">
                 Yes! {game.name} is 100% free to play on Xavrito. No downloads, no signups, no payments - just open and play instantly in your browser.
               </div>
             </details>
@@ -295,8 +517,19 @@ export default function GamePage({ params }: PageProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-sm text-white/50 leading-relaxed border-t border-white/10 pt-4">
+              <div className="px-5 pb-5 text-sm text-white/60 leading-relaxed border-t border-white/10 pt-4">
                 Most games on Xavrito work on both desktop and mobile browsers. Touch controls are supported where applicable.
+              </div>
+            </details>
+            <details className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-medium text-white hover:text-purple-400 transition-colors">
+                Do I need to create an account to play {game.name}?
+                <svg className="w-5 h-5 text-white/40 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="px-5 pb-5 text-sm text-white/60 leading-relaxed border-t border-white/10 pt-4">
+                No. {game.name} on Xavrito requires no signup, no login, and no personal information. Just open the page and start playing instantly.
               </div>
             </details>
           </div>
@@ -311,6 +544,9 @@ export default function GamePage({ params }: PageProps) {
               <div className="w-8 h-1 bg-purple-500 rounded-full" />
               <h2 className="text-xl font-bold text-white">More {game.category} Games</h2>
             </div>
+            <p className="text-white/60 text-sm mb-6 max-w-3xl">
+              If you enjoyed {game.name}, try these other free {game.category.toLowerCase()} games from our catalog. Each one loads instantly in your browser — no download, no signup.
+            </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {relatedGames.map((g) => (
                 <Html5GameCard key={g.slug} game={g} />
